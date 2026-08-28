@@ -2,8 +2,8 @@
  * Direct subpath import for ion-input-password-toggle — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonInputPasswordToggle } from "@deijose/nix-ionic/components/input-password-toggle";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonInputPasswordToggle } from "@elurjs/ionic/components/input-password-toggle";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonInputPasswordToggle);
  * ```

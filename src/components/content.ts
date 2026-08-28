@@ -2,8 +2,8 @@
  * Direct subpath import for ion-content — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonContent } from "@deijose/nix-ionic/components/content";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonContent } from "@elurjs/ionic/components/content";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonContent);
  * ```

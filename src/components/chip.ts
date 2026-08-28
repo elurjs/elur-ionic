@@ -2,8 +2,8 @@
  * Direct subpath import for ion-chip — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonChip } from "@deijose/nix-ionic/components/chip";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonChip } from "@elurjs/ionic/components/chip";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonChip);
  * ```

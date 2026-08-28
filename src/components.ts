@@ -3,12 +3,12 @@
  *
  * Import only what you need:
  * ```ts
- * import { defineIonButton, defineIonCard } from "@deijose/nix-ionic/components";
+ * import { defineIonButton, defineIonCard } from "@elurjs/ionic/components";
  * ```
  *
  * For maximum tree-shaking, prefer direct subpaths:
  * ```ts
- * import { defineIonButton } from "@deijose/nix-ionic/components/button";
+ * import { defineIonButton } from "@elurjs/ionic/components/button";
  * ```
  *
  * NOTE: This barrel re-exports all components. While ESM can tree-shake

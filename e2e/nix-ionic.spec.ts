@@ -89,7 +89,7 @@ test.describe("Page lifecycle", () => {
 
         // Navigate back via router.back() — the E2E app sets initial hash
         // to "#/" so back() from "#/detail/42" to "#/" fires hashchange.
-        await page.evaluate(() => (window as any).__nixRouter.back());
+        await page.evaluate(() => (window as any).__elurRouter.back());
 
         // ionViewWillEnter should fire again from cache. The exact count
         // depends on whether Ionic's commit() also dispatches the event
@@ -126,18 +126,18 @@ test.describe("Page lifecycle", () => {
     test("uncached page remounts on every visit", async ({ page }) => {
         // Navigate to uncached page via URL
         await page.evaluate(() => {
-            (window as any).__nixRouter.navigate("/uncached");
+            (window as any).__elurRouter.navigate("/uncached");
         });
         await waitForVisibleText(page, "uncached-mounts", "1");
 
         // Go back and navigate again — should remount
         await page.evaluate(() => {
-            (window as any).__nixRouter.navigate("/");
+            (window as any).__elurRouter.navigate("/");
         });
         await waitForVisibleText(page, "home-visits", "Visits");
 
         await page.evaluate(() => {
-            (window as any).__nixRouter.navigate("/uncached");
+            (window as any).__elurRouter.navigate("/uncached");
         });
         await waitForVisibleText(page, "uncached-mounts", "1");
     });
@@ -154,11 +154,11 @@ test.describe("Overlays", () => {
         await page.waitForSelector("ion-toast", { state: "detached", timeout: 5000 });
     });
 
-    test("modal presents with Nix.js content and dismisses", async ({ page }) => {
+    test("modal presents with Elur content and dismisses", async ({ page }) => {
         await clickVisible(page, "go-modal");
-        // Modal should appear with Nix.js content
+        // Modal should appear with Elur content
         await page.waitForSelector("[data-testid='modal-content']", { timeout: 5000 });
-        await expect(page.locator("[data-testid='modal-content']")).toHaveText("Modal content from Nix.js");
+        await expect(page.locator("[data-testid='modal-content']")).toHaveText("Modal content from Elur");
 
         // Close modal
         await page.click("[data-testid='modal-close']");

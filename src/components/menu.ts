@@ -2,8 +2,8 @@
  * Direct subpath import for ion-menu — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonMenu } from "@deijose/nix-ionic/components/menu";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonMenu } from "@elurjs/ionic/components/menu";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonMenu);
  * ```

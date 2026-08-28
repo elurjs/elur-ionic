@@ -2,8 +2,8 @@
  * Direct subpath import for ion-fab-button — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonFabButton } from "@deijose/nix-ionic/components/fab-button";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonFabButton } from "@elurjs/ionic/components/fab-button";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonFabButton);
  * ```

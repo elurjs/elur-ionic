@@ -1,5 +1,5 @@
 /**
- * @deijose/nix-ionic / IonRouterOutlet.ts  —  v2.5
+ * @elurjs/ionic / IonRouterOutlet.ts  —  v2.5
  *
  *  Architecture: "core API + ion-router-outlet motor" (with auto-bootstrap)
  *
@@ -36,17 +36,17 @@
  *  super call, your `ionViewWillEnter`/etc. methods never fire.
  */
 
-import { NixComponent, effect } from "@deijose/nix-js";
-import type { NixTemplate } from "@deijose/nix-js";
+import { ElurComponent, effect } from "@elurjs/core";
+import type { ElurTemplate } from "@elurjs/core";
 import {
-    nixRouter,
+    elurRouter,
     createRouter,
     _hasActiveRouter,
     type Router,
     type RouteRecord,
     type NavigationGuard,
     type NavigationIntent,
-} from "@deijose/nix-js";
+} from "@elurjs/core";
 import { createPageLifecycle, _connectIonicLifecycle, type PageLifecycle } from "./lifecycle";
 import { NavigationManager, StackManager } from "./navigation";
 
@@ -65,7 +65,7 @@ export interface PageContext {
 
 export interface RouteDefinition {
     path: string;
-    component: (ctx: PageContext) => NixComponent | NixTemplate;
+    component: (ctx: PageContext) => ElurComponent | ElurTemplate;
     beforeEnter?: (ctx: PageContext) => GuardResult | Promise<GuardResult>;
     /**
      * Per-route cache policy override. When set, takes precedence over the
@@ -400,9 +400,9 @@ class CacheRegistry {
     }
 }
 
-export function IonBackButton(defaultHref: string = "/"): NixTemplate {
+export function IonBackButton(defaultHref: string = "/"): ElurTemplate {
     return {
-        __isNixTemplate: true as const,
+        __isElurTemplate: true as const,
         mount(container: Element | string) {
             const el = typeof container === "string"
                 ? document.querySelector(container)!
@@ -422,7 +422,7 @@ export function IonBackButton(defaultHref: string = "/"): NixTemplate {
             const onClick = (ev: Event) => {
                 ev.preventDefault();
                 ev.stopPropagation();
-                const router = nixRouter();
+                const router = elurRouter();
                 const nav = _activeNavigationManager;
                 const canGoBack = nav ? nav.canGoBack.value : router.canGoBack.value;
                 if (canGoBack) {
@@ -449,7 +449,7 @@ export function IonBackButton(defaultHref: string = "/"): NixTemplate {
  */
 let _activeNavigationManager: NavigationManager | null = null;
 
-export class IonRouterOutlet extends NixComponent {
+export class IonRouterOutlet extends ElurComponent {
     private _routesByPath = new Map<string, RouteDefinition>();
     private _wildcardRoute: RouteDefinition | null = null;
     private _enableCache: boolean;
@@ -495,7 +495,7 @@ export class IonRouterOutlet extends NixComponent {
             if (r.path === "*") {
                 if (this._wildcardRoute) {
                     console.warn(
-                        `[nix-ionic] Duplicate wildcard route "*" — the previous ` +
+                        `[elur-ionic] Duplicate wildcard route "*" — the previous ` +
                         `fallback will be overwritten. Define only one "*" route.`,
                     );
                 }
@@ -504,7 +504,7 @@ export class IonRouterOutlet extends NixComponent {
             }
             if (this._routesByPath.has(r.path)) {
                 console.warn(
-                    `[nix-ionic] Duplicate route path "${r.path}" — the previous ` +
+                    `[elur-ionic] Duplicate route path "${r.path}" — the previous ` +
                     `definition will be overwritten. Each route path must be unique.`,
                 );
             }
@@ -558,7 +558,7 @@ export class IonRouterOutlet extends NixComponent {
         def: RouteDefinition;
         params: Record<string, string>;
     } | null {
-        const router = nixRouter();
+        const router = elurRouter();
         const resolved = router.resolve(currentPath);
         if (!resolved.matched || !resolved.route) return null;
         const def = this._routesByPath.get(resolved.route.path);
@@ -593,11 +593,11 @@ export class IonRouterOutlet extends NixComponent {
         ctx: PageContext,
     ): () => void {
         const node = def.component(ctx);
-        if ("render" in node && typeof (node as NixComponent).render === "function") {
-            const comp = node as NixComponent;
+        if ("render" in node && typeof (node as ElurComponent).render === "function") {
+            const comp = node as ElurComponent;
             // Connect Ionic lifecycle via the symbol-based internal API so
             // the contract does NOT depend on subclasses calling super.onInit().
-            // IonPage implements this symbol; other NixComponents ignore it.
+            // IonPage implements this symbol; other ElurComponents ignore it.
             let lifecycleDispose: (() => void) | null = null;
             if (_connectIonicLifecycle in comp) {
                 lifecycleDispose = (comp as any)[_connectIonicLifecycle]();
@@ -612,7 +612,7 @@ export class IonRouterOutlet extends NixComponent {
                 lifecycleDispose?.();
             };
         } else {
-            return (node as NixTemplate)._render(pageEl, null);
+            return (node as ElurTemplate)._render(pageEl, null);
         }
     }
 
@@ -642,7 +642,7 @@ export class IonRouterOutlet extends NixComponent {
         if (!resolved) return;
 
         const { def, params } = resolved;
-        const router = nixRouter();
+        const router = elurRouter();
         const query = router.query.value;
         const cacheKey = _buildCacheKey(def.path, params, query);
         const targetTabKey = this._stacks.keyForPath(targetPath);
@@ -691,7 +691,7 @@ export class IonRouterOutlet extends NixComponent {
                         // only pending nav after this is the one triggered by
                         // the redirect itself (which is legitimate).
                         this._pendingNav = null;
-                        nixRouter().replace(parsed.redirect);
+                        elurRouter().replace(parsed.redirect);
                         // Don't mark as cancelled — the redirect enqueued a
                         // new pending nav via the effect that should process.
                     } else {
@@ -879,7 +879,7 @@ export class IonRouterOutlet extends NixComponent {
 
             if (pending && !transitionCancelled) {
                 // Re-validate against current router state before processing.
-                const currentRouter = nixRouter();
+                const currentRouter = elurRouter();
                 if (pending.path === currentRouter.current.value) {
                     void this._transitionTo(pending.path, pending.intent);
                 }
@@ -889,10 +889,10 @@ export class IonRouterOutlet extends NixComponent {
         }
     }
 
-    override render(): NixTemplate {
+    override render(): ElurTemplate {
         const self = this;
         return {
-            __isNixTemplate: true as const,
+            __isElurTemplate: true as const,
 
             mount(container: Element | string) {
                 const el = typeof container === "string"
@@ -921,7 +921,7 @@ export class IonRouterOutlet extends NixComponent {
 
                 parent.insertBefore(outletEl, before);
 
-                const router: Router = nixRouter();
+                const router: Router = elurRouter();
                 let lastSeenNavKey: string | null = null;
                 let initialDeferred = false;
 

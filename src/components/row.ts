@@ -2,8 +2,8 @@
  * Direct subpath import for ion-row — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonRow } from "@deijose/nix-ionic/components/row";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonRow } from "@elurjs/ionic/components/row";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonRow);
  * ```

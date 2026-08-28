@@ -1,21 +1,21 @@
 {
-  "name": "@deijose/nix-ionic",
+  "name": "@elurjs/ionic",
   "version": "2.0.7",
-  "description": "Ionic lifecycle & router bridge for Nix.js",
+  "description": "Ionic lifecycle & router bridge for Elur",
   "license": "MIT",
   "author": "Deiver Vasquez",
   "type": "module",
-  "homepage": "https://github.com/DeijoseDevelop/nix-ionic",
+  "homepage": "https://github.com/elurjs/elur-ionic",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DeijoseDevelop/nix-ionic.git"
+    "url": "git+https://github.com/elurjs/elur-ionic.git"
   },
-  "main": "./dist/lib/nix-ionic.cjs",
-  "module": "./dist/lib/nix-ionic.js",
+  "main": "./dist/lib/elur-ionic.cjs",
+  "module": "./dist/lib/elur-ionic.js",
   "types": "./dist/lib/index.d.ts",
   "keywords": [
     "ionic",
-    "nix-js",
+    "elur",
     "bridge",
     "routing",
     "navigation",
@@ -29,7 +29,7 @@
     "reactive",
     "signals",
     "typescript",
-    "micro-framework",
+    "framework",
     "ui",
     "frontend",
     "tree-shaking",
@@ -37,8 +37,8 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/lib/nix-ionic.js",
-      "require": "./dist/lib/nix-ionic.cjs",
+      "import": "./dist/lib/elur-ionic.js",
+      "require": "./dist/lib/elur-ionic.cjs",
       "types": "./dist/lib/index.d.ts"
     },
     "./components": {
@@ -142,7 +142,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "clean:lib": "rm -rf dist/lib",
-    "build:lib": "vite build --config vite.lib.config.ts && tsc --project tsconfig.lib.json && terser dist/lib/nix-ionic.js -c -m -o dist/lib/nix-ionic.js && terser dist/lib/nix-ionic.cjs -c -m -o dist/lib/nix-ionic.cjs",
+    "build:lib": "vite build --config vite.lib.config.ts && tsc --project tsconfig.lib.json && terser dist/lib/elur-ionic.js -c -m -o dist/lib/elur-ionic.js && terser dist/lib/elur-ionic.cjs -c -m -o dist/lib/elur-ionic.cjs",
     "prepack": "npm run clean:lib && npm run build:lib",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -153,7 +153,7 @@
     "measure-bundles": "node scripts/measure-bundles.mjs"
   },
   "peerDependencies": {
-    "@deijose/nix-js": "^2.5.3 || ^3.0.0",
+    "@elurjs/core": "^2.5.3 || ^3.0.0",
     "@ionic/core": "^8.0.0",
     "ionicons": "^8.0.0"
   },
@@ -178,14 +178,17 @@
     }
   },
   "devDependencies": {
+    "@babel/parser": "^7.29.8",
+    "@babel/traverse": "^7.29.8",
+    "@babel/types": "^7.29.8",
     "@capacitor/app": "^8.1.1",
     "@capacitor/core": "^8.5.0",
     "@capacitor/haptics": "^8.0.2",
     "@capacitor/keyboard": "^8.0.5",
     "@capacitor/splash-screen": "^8.0.2",
     "@capacitor/status-bar": "^8.0.3",
-    "@deijose/nix-js": "3.5.0",
-    "@deijose/nix-js-testing": "^0.1.4",
+    "@elurjs/core": "3.5.0",
+    "@elurjs/core-testing": "^0.1.4",
     "@ionic/core": "^8.8.1",
     "@playwright/test": "^1.62.1",
     "@types/babel__traverse": "^7.28.0",

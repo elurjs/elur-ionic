@@ -2,8 +2,8 @@
  * Direct subpath import for ion-thumbnail — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonThumbnail } from "@deijose/nix-ionic/components/thumbnail";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonThumbnail } from "@elurjs/ionic/components/thumbnail";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonThumbnail);
  * ```

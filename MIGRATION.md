@@ -1,6 +1,6 @@
 # Migration guide: 1.x → 2.0
 
-This guide covers breaking changes, deprecations, and new features when upgrading from `@deijose/nix-ionic` 1.x to 2.0.
+This guide covers breaking changes, deprecations, and new features when upgrading from `@elurjs/ionic` 1.x to 2.0.
 
 ## Summary
 
@@ -11,24 +11,24 @@ This guide covers breaking changes, deprecations, and new features when upgradin
 - **Cache policies** — LRU/FIFO max eviction, TTL expiry, per-route overrides
 - **Page-state persistence** — opt-in serializable state across navigation
 - **Optional Capacitor** — zero web bundle cost, isolated subpath
-- **Single router** — no more competing Ionic/Nix routers
+- **Single router** — no more competing Ionic/Elur routers
 - **Leak-free lifecycle** — proper cleanup of effects, watchers, timers, overlays
 
 ## Breaking changes
 
-### 1. `setupNixIonic()` no longer registers all components
+### 1. `setupElurIonic()` no longer registers all components
 
 **Before (1.x):**
 ```ts
-setupNixIonic(); // registers everything including unpkg@latest assets
+setupElurIonic(); // registers everything including unpkg@latest assets
 ```
 
 **After (2.0):**
 ```ts
-import { initializeNixIonic, registerIonicComponents } from "@deijose/nix-ionic";
-import { defineIonButton } from "@deijose/nix-ionic/components/button";
+import { initializeElurIonic, registerIonicComponents } from "@elurjs/ionic";
+import { defineIonButton } from "@elurjs/ionic/components/button";
 
-initializeNixIonic();
+initializeElurIonic();
 registerIonicComponents(defineIonButton);
 ```
 
@@ -36,14 +36,14 @@ registerIonicComponents(defineIonButton);
 
 ```ts
 // Option A: compatibility facade (registers everything)
-import { setupNixIonic } from "@deijose/nix-ionic";
-import { allComponents } from "@deijose/nix-ionic/bundles/all";
-setupNixIonic({ components: allComponents });
+import { setupElurIonic } from "@elurjs/ionic";
+import { allComponents } from "@elurjs/ionic/bundles/all";
+setupElurIonic({ components: allComponents });
 
 // Option B: Vite plugin (auto-detects from html`` templates)
-import { nixIonic } from "@deijose/nix-ionic/vite-plugin";
-// vite.config.ts: plugins: [nixIonic()]
-// app entry: import "virtual:nix-ionic/registration";
+import { elurIonic } from "@elurjs/ionic/vite-plugin";
+// vite.config.ts: plugins: [elurIonic()]
+// app entry: import "virtual:elur-ionic/registration";
 ```
 
 ### 2. `unpkg@latest` asset URL removed
@@ -54,7 +54,7 @@ import { nixIonic } from "@deijose/nix-ionic/vite-plugin";
 **Migration:** If you relied on the CDN, configure it explicitly:
 
 ```ts
-initializeNixIonic({
+initializeElurIonic({
   // assets are resolved relative to your bundle by default
   // for CDN: setAssetPath("https://unpkg.com/@ionic/core@8/dist/")
 });
@@ -62,7 +62,7 @@ initializeNixIonic({
 
 ### 3. `@ionic/core` and `ionicons` are now peer dependencies
 
-**Before:** Bundled with `@deijose/nix-ionic`.
+**Before:** Bundled with `@elurjs/ionic`.
 **After:** You install them directly — ensures version compatibility.
 
 ```bash
@@ -78,7 +78,7 @@ const toast = useToast(); // React-style naming
 
 **After (2.0):**
 ```ts
-const toast = createToast(); // Nix.js create* pattern
+const toast = createToast(); // Elur create* pattern
 ```
 
 | Old | New |
@@ -96,20 +96,20 @@ const toast = createToast(); // Nix.js create* pattern
 
 ### 5. `Signal.set()` removed
 
-Nix.js signals use `.value` for both reads and writes:
+Elur signals use `.value` for both reads and writes:
 
 ```ts
 // Correct
 sig.value = newValue;
 sig.value; // read
 
-// Wrong (never existed in Nix.js, but was incorrectly used in early overlay code)
+// Wrong (never existed in Elur, but was incorrectly used in early overlay code)
 sig.set(newValue);
 ```
 
-### 6. `onCleanup` not exported from Nix.js
+### 6. `onCleanup` not exported from Elur
 
-Nix.js uses `effect()` return value or `NixComponent.onUnmount()` for cleanup:
+Elur uses `effect()` return value or `ElurComponent.onUnmount()` for cleanup:
 
 ```ts
 // Correct — effect returns a dispose function
@@ -143,7 +143,7 @@ new IonRouterOutlet(routes, {
 ```ts
 const modal = createModalController();
 await modal.present({
-  component: () => html`<ion-content><h1>Mounted by Nix.js!</h1></ion-content>`,
+  component: () => html`<ion-content><h1>Mounted by Elur!</h1></ion-content>`,
 });
 // modal.presented.value → true (reactive)
 // modal.result.value → dismiss detail (reactive)
@@ -164,7 +164,7 @@ state.save();    // on page leave
 ### Capacitor integration
 
 ```ts
-import { createCapacitorApp } from "@deijose/nix-ionic/capacitor";
+import { createCapacitorApp } from "@elurjs/ionic/capacitor";
 
 const app = createCapacitorApp({
   statusBar: { style: "dark" },
@@ -178,25 +178,25 @@ await app.ready();
 
 ```ts
 // vite.config.ts
-import { nixIonic } from "@deijose/nix-ionic/vite-plugin";
-export default defineConfig({ plugins: [nixIonic()] });
+import { elurIonic } from "@elurjs/ionic/vite-plugin";
+export default defineConfig({ plugins: [elurIonic()] });
 
 // app entry
-import "virtual:nix-ionic/registration";
+import "virtual:elur-ionic/registration";
 ```
 
 ### Direct component subpaths
 
 ```ts
-import { defineIonButton } from "@deijose/nix-ionic/components/button";
-import { defineIonCard } from "@deijose/nix-ionic/components/card";
+import { defineIonButton } from "@elurjs/ionic/components/button";
+import { defineIonCard } from "@elurjs/ionic/components/card";
 ```
 
 ## Deprecations
 
 | Deprecated | Replacement | Notes |
 |---|---|---|
-| `setupNixIonic()` | `initializeNixIonic()` + `registerIonicComponents()` | Facade kept for migration |
+| `setupElurIonic()` | `initializeElurIonic()` + `registerIonicComponents()` | Facade kept for migration |
 | `allComponents` | Vite plugin or explicit imports | Kept for migration only |
 | `components` export | `components/*` subpaths | Use direct subpath imports |
 

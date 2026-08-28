@@ -2,8 +2,8 @@
  * Direct subpath import for ion-router-link — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonRouterLink } from "@deijose/nix-ionic/components/router-link";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonRouterLink } from "@elurjs/ionic/components/router-link";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonRouterLink);
  * ```

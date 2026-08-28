@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { NavigationManager, StackManager } from "../navigation.js";
-import type { NavigationIntent } from "@deijose/nix-js";
+import type { NavigationIntent } from "@elurjs/core";
 
 const forwardIntent: NavigationIntent = {
     direction: "forward",
@@ -421,7 +421,7 @@ describe("NavigationManager", () => {
         });
 
         it("is reactive (can be used in effects)", async () => {
-            const { effect } = await import("@deijose/nix-js");
+            const { effect } = await import("@elurjs/core");
             const nav = new NavigationManager({});
             const values: boolean[] = [];
 

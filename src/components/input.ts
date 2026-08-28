@@ -2,8 +2,8 @@
  * Direct subpath import for ion-input — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonInput } from "@deijose/nix-ionic/components/input";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonInput } from "@elurjs/ionic/components/input";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonInput);
  * ```

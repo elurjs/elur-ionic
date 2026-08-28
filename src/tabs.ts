@@ -1,17 +1,17 @@
 /**
- * @deijose/nix-ionic / tabs.ts  —  v2
+ * @elurjs/ionic / tabs.ts  —  v2
  *
  * Bottom tab bar that drives navigation through the core router. The visual
- * "active" state is computed from `nixRouter().current` directly.
+ * "active" state is computed from `elurRouter().current` directly.
  *
  * Tab switches are intentionally direction:"none" — Ionic's convention is no
  * animation between tabs. Per-tab stacks (configured on IonRouterOutlet via
  * `tabs: [...]`) preserve each tab's deep view across switches.
  */
 
-import { html, NixComponent, effect, ref, nextTick } from "@deijose/nix-js";
-import type { NixTemplate } from "@deijose/nix-js";
-import { nixRouter, type NavigationDirection } from "@deijose/nix-js";
+import { html, ElurComponent, effect, ref, nextTick } from "@elurjs/core";
+import type { ElurTemplate } from "@elurjs/core";
+import { elurRouter, type NavigationDirection } from "@elurjs/core";
 import { addIcons, type IconDefinitionMap } from "./setup.js";
 
 /** Layout of icon and label inside each tab button. */
@@ -112,10 +112,10 @@ function _cssVarsToString(vars: Record<string, string> | undefined): string {
 export function createBottomTabBar(
     tabs: BottomTabItem[],
     options: BottomTabBarOptions = {},
-): NixTemplate {
-    const router = nixRouter();
+): ElurTemplate {
+    const router = elurRouter();
     const slot = options.slot ?? "bottom";
-    const className = options.className ?? "nix-ion-tab-bar";
+    const className = options.className ?? "elur-ion-tab-bar";
     const direction: NavigationDirection = options.navigationDirection ?? "none";
     const layout: TabButtonLayout = options.layout ?? "icon-top";
     const cssVars = options.cssVars;
@@ -126,7 +126,7 @@ export function createBottomTabBar(
     }
 
     // Stencil boolean props (like `selected`) cannot be set via HTML
-    // attributes with Nix.js. We use an effect to set the JS property
+    // attributes with Elur. We use an effect to set the JS property
     // directly on each ion-tab-button after it's in the DOM, and
     // re-sync whenever the route changes.
     const tabBarRef = ref<HTMLElement>();
@@ -187,7 +187,7 @@ export function createBottomTabBar(
             @click.prevent.stop=${() => {
                     // .prevent.stop prevents Ionic's internal tab selection
                     // (which looks for <ion-tab> children we don't have).
-                    // We drive navigation through the Nix.js router instead.
+                    // We drive navigation through the Elur router instead.
                     if (_isActive(tab, router.current.value)) {
                         router.replace(tab.path, { direction: "none" });
                     } else {
@@ -223,7 +223,7 @@ export function createBottomTabBar(
  * the available space and the tab bar sits at the bottom (or top).
  *
  * We use <ion-tabs> for layout only — navigation is driven by the
- * Nix.js router via the @click handler on each <ion-tab-button>, not
+ * Elur router via the @click handler on each <ion-tab-button>, not
  * by Ionic's internal tab selection. The tab buttons have `tab` IDs
  * so Ionic doesn't warn, but there are no <ion-tab> children.
  *
@@ -232,11 +232,11 @@ export function createBottomTabBar(
  * collapse the layout.
  */
 export function createTabsLayout(
-    outlet: NixTemplate | NixComponent,
-    tabBar: NixTemplate,
-): NixTemplate {
+    outlet: ElurTemplate | ElurComponent,
+    tabBar: ElurTemplate,
+): ElurTemplate {
     _injectTabsLayoutStyles();
-    const outletTemplate = outlet instanceof NixComponent ? outlet.render() : outlet;
+    const outletTemplate = outlet instanceof ElurComponent ? outlet.render() : outlet;
     return html`
         <ion-tabs>
             ${outletTemplate}
@@ -252,7 +252,7 @@ function _injectTabsLayoutStyles(): void {
     if (typeof document === "undefined") return;
     _tabsStylesInjected = true;
     const style = document.createElement("style");
-    style.id = "nix-ionic-tabs-layout";
+    style.id = "elur-ionic-tabs-layout";
     // ion-tabs defaults to display:block with no explicit height, which
     // collapses to the tab bar's height because ion-router-outlet is
     // position:absolute. Force ion-tabs to fill its parent and use flexbox

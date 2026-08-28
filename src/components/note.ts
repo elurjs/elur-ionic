@@ -2,8 +2,8 @@
  * Direct subpath import for ion-note — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonNote } from "@deijose/nix-ionic/components/note";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonNote } from "@elurjs/ionic/components/note";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonNote);
  * ```

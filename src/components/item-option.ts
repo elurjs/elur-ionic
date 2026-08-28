@@ -2,8 +2,8 @@
  * Direct subpath import for ion-item-option — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonItemOption } from "@deijose/nix-ionic/components/item-option";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonItemOption } from "@elurjs/ionic/components/item-option";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonItemOption);
  * ```

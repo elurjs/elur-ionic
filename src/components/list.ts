@@ -2,8 +2,8 @@
  * Direct subpath import for ion-list — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonList } from "@deijose/nix-ionic/components/list";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonList } from "@elurjs/ionic/components/list";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonList);
  * ```

@@ -2,8 +2,8 @@
  * Direct subpath import for ion-card — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonCard } from "@deijose/nix-ionic/components/card";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonCard } from "@elurjs/ionic/components/card";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonCard);
  * ```

@@ -50,7 +50,7 @@ vi.mock("ionicons/icons", () => ({
 
 import { addIcons as mockAddIcons, setAssetPath as mockSetAssetPath } from "ionicons";
 
-describe("setupNixIonic (compat facade)", () => {
+describe("setupElurIonic (compat facade)", () => {
     beforeEach(async () => {
         vi.clearAllMocks();
         vi.resetModules();
@@ -59,8 +59,8 @@ describe("setupNixIonic (compat facade)", () => {
     async function loadSetup() {
         const mod = await import("../setup.js");
         return {
-            setupNixIonic: mod.setupNixIonic,
-            initializeNixIonic: mod.initializeNixIonic,
+            setupElurIonic: mod.setupElurIonic,
+            initializeElurIonic: mod.initializeElurIonic,
             registerIonicComponents: mod.registerIonicComponents,
             registerIonicons: mod.registerIonicons,
             exportedAddIcons: mod.addIcons,
@@ -68,8 +68,8 @@ describe("setupNixIonic (compat facade)", () => {
     }
 
     it("initializes with inline icons by default (no unpkg@latest)", async () => {
-        const { setupNixIonic } = await loadSetup();
-        setupNixIonic();
+        const { setupElurIonic } = await loadSetup();
+        setupElurIonic();
         // Should NOT set the old unpkg@latest default
         expect(mockSetAssetPath).toHaveBeenCalledWith("");
         expect((window as any).ionicons?.assets).not.toBe(
@@ -78,14 +78,14 @@ describe("setupNixIonic (compat facade)", () => {
     });
 
     it("uses custom icon asset path via iconAssetPath (compat)", async () => {
-        const { setupNixIonic } = await loadSetup();
-        setupNixIonic({ iconAssetPath: "/assets/icons/" });
+        const { setupElurIonic } = await loadSetup();
+        setupElurIonic({ iconAssetPath: "/assets/icons/" });
         expect(mockSetAssetPath).toHaveBeenCalledWith("/assets/icons/");
     });
 
     it("registers core components and adds default icons", async () => {
-        const { setupNixIonic } = await loadSetup();
-        setupNixIonic();
+        const { setupElurIonic } = await loadSetup();
+        setupElurIonic();
         expect(mockAddIcons).toHaveBeenCalledWith(
             expect.objectContaining({
                 "arrow-back": "arrowBackIcon",
@@ -97,9 +97,9 @@ describe("setupNixIonic (compat facade)", () => {
     });
 
     it("registers extra components and merges icons", async () => {
-        const { setupNixIonic } = await loadSetup();
+        const { setupElurIonic } = await loadSetup();
         const customComponent = vi.fn();
-        setupNixIonic({ components: [customComponent], icons: { home: "homeIcon" } });
+        setupElurIonic({ components: [customComponent], icons: { home: "homeIcon" } });
         expect(customComponent).toHaveBeenCalled();
         // Default icons + custom icons should both be registered
         expect(mockAddIcons).toHaveBeenCalledWith(
@@ -115,13 +115,13 @@ describe("setupNixIonic (compat facade)", () => {
     });
 
     it("re-exports addIcons", async () => {
-        const { setupNixIonic, exportedAddIcons } = await loadSetup();
-        setupNixIonic();
+        const { setupElurIonic, exportedAddIcons } = await loadSetup();
+        setupElurIonic();
         expect(exportedAddIcons).toBe(mockAddIcons);
     });
 });
 
-describe("initializeNixIonic", () => {
+describe("initializeElurIonic", () => {
     beforeEach(async () => {
         vi.clearAllMocks();
         vi.resetModules();
@@ -132,28 +132,28 @@ describe("initializeNixIonic", () => {
     }
 
     it("returns a handle with initialized=true on first call", async () => {
-        const { initializeNixIonic } = await loadSetup();
-        const handle = initializeNixIonic();
+        const { initializeElurIonic } = await loadSetup();
+        const handle = initializeElurIonic();
         expect(handle.initialized).toBe(true);
         expect(handle.diagnostics).toEqual([]);
     });
 
     it("returns initialized=false on second call (no-op)", async () => {
-        const { initializeNixIonic } = await loadSetup();
-        initializeNixIonic();
-        const handle2 = initializeNixIonic();
+        const { initializeElurIonic } = await loadSetup();
+        initializeElurIonic();
+        const handle2 = initializeElurIonic();
         expect(handle2.initialized).toBe(false);
     });
 
     it("uses setAssetPath with empty string for inline mode", async () => {
-        const { initializeNixIonic } = await loadSetup();
-        initializeNixIonic({ icons: "inline" });
+        const { initializeElurIonic } = await loadSetup();
+        initializeElurIonic({ icons: "inline" });
         expect(mockSetAssetPath).toHaveBeenCalledWith("");
     });
 
     it("uses setAssetPath with explicit path for assets mode", async () => {
-        const { initializeNixIonic } = await loadSetup();
-        initializeNixIonic({ icons: { mode: "assets", path: "/my/icons/" } });
+        const { initializeElurIonic } = await loadSetup();
+        initializeElurIonic({ icons: { mode: "assets", path: "/my/icons/" } });
         expect(mockSetAssetPath).toHaveBeenCalledWith("/my/icons/");
     });
 });
@@ -168,9 +168,9 @@ describe("registerIonicComponents (incremental)", () => {
         return await import("../setup.js");
     }
 
-    it("registers components even after initializeNixIonic was called", async () => {
-        const { initializeNixIonic, registerIonicComponents } = await loadSetup();
-        initializeNixIonic();
+    it("registers components even after initializeElurIonic was called", async () => {
+        const { initializeElurIonic, registerIonicComponents } = await loadSetup();
+        initializeElurIonic();
 
         const extraDefiner = vi.fn(() => {
             if (!customElements.get("ion-button")) {
@@ -227,8 +227,8 @@ describe("registerIonicons (incremental)", () => {
     }
 
     it("registers new icons after init", async () => {
-        const { initializeNixIonic, registerIonicons } = await loadSetup();
-        initializeNixIonic();
+        const { initializeElurIonic, registerIonicons } = await loadSetup();
+        initializeElurIonic();
 
         registerIonicons({ home: "homeSvg", "home-outline": "homeOutlineSvg" });
         expect(mockAddIcons).toHaveBeenCalledWith(
@@ -240,9 +240,9 @@ describe("registerIonicons (incremental)", () => {
     });
 
     it("warns on icon name collision but still overwrites", async () => {
-        const { initializeNixIonic, registerIonicons } = await loadSetup();
+        const { initializeElurIonic, registerIonicons } = await loadSetup();
         const warn = vi.spyOn(console, "warn").mockImplementation(() => { });
-        initializeNixIonic();
+        initializeElurIonic();
 
         // "arrow-back" is a default icon — registering again should warn.
         registerIonicons({ "arrow-back": "newArrowBack" });
@@ -258,8 +258,8 @@ describe("registerIonicons (incremental)", () => {
     });
 
     it("can be called multiple times with different icons", async () => {
-        const { initializeNixIonic, registerIonicons } = await loadSetup();
-        initializeNixIonic();
+        const { initializeElurIonic, registerIonicons } = await loadSetup();
+        initializeElurIonic();
 
         registerIonicons({ star: "starSvg" });
         registerIonicons({ heart: "heartSvg" });

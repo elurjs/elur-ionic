@@ -2,8 +2,8 @@
  * Direct subpath import for ion-select — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonSelect } from "@deijose/nix-ionic/components/select";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonSelect } from "@elurjs/ionic/components/select";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonSelect);
  * ```

@@ -2,8 +2,8 @@
  * Direct subpath import for ion-tab-button — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonTabButton } from "@deijose/nix-ionic/components/tab-button";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonTabButton } from "@elurjs/ionic/components/tab-button";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonTabButton);
  * ```

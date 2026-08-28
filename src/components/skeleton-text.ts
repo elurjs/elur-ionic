@@ -2,8 +2,8 @@
  * Direct subpath import for ion-skeleton-text — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonSkeletonText } from "@deijose/nix-ionic/components/skeleton-text";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonSkeletonText } from "@elurjs/ionic/components/skeleton-text";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonSkeletonText);
  * ```

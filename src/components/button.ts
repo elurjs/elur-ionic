@@ -2,8 +2,8 @@
  * Direct subpath import for ion-button — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonButton } from "@deijose/nix-ionic/components/button";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonButton } from "@elurjs/ionic/components/button";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonButton);
  * ```

@@ -1,7 +1,7 @@
 /**
- * @deijose/nix-ionic / overlays.ts
+ * @elurjs/ionic / overlays.ts
  *
- * Reactive overlay controllers for Nix.js following the `create*` pattern
+ * Reactive overlay controllers for Elur following the `create*` pattern
  * (`createStore`, `createRouter`, `createForm` → `createToast`, `createAlert`, etc.).
  *
  * Each controller provides:
@@ -17,8 +17,8 @@
  *
  * @example Function component (preferred)
  * ```ts
- * import { signal, html } from "@deijose/nix-js";
- * import { createToast, createAlert } from "@deijose/nix-ionic";
+ * import { signal, html } from "@elurjs/core";
+ * import { createToast, createAlert } from "@elurjs/ionic";
  *
  * function SettingsPage() {
  *   // Create overlay controllers — signals close over function scope
@@ -55,8 +55,8 @@
  *
  * @example Class component with lifecycle cleanup
  * ```ts
- * import { NixComponent, html, signal } from "@deijose/nix-js";
- * import { createLoading, IonPage } from "@deijose/nix-ionic";
+ * import { ElurComponent, html, signal } from "@elurjs/core";
+ * import { createLoading, IonPage } from "@elurjs/ionic";
  *
  * class ProfilePage extends IonPage {
  *   private loading = createLoading();
@@ -88,8 +88,8 @@
  *
  * @example Reactive UI driven by overlay signals
  * ```ts
- * import { signal, html } from "@deijose/nix-js";
- * import { createModal } from "@deijose/nix-ionic";
+ * import { signal, html } from "@elurjs/core";
+ * import { createModal } from "@elurjs/ionic";
  *
  * function ProductList() {
  *   const modal = createModal();
@@ -122,7 +122,7 @@
  * ```
  */
 
-import { signal, type Signal, mount, type NixTemplate, type NixComponent } from "@deijose/nix-js";
+import { signal, type Signal, mount, type ElurTemplate, type ElurComponent } from "@elurjs/core";
 import {
     toastController,
     alertController,
@@ -133,10 +133,10 @@ import {
     pickerController,
 } from "@ionic/core";
 
-// --- Nix.js framework delegate for overlays ---
+// --- Elur framework delegate for overlays ---
 // Ionic overlays (popover, modal) need a "framework delegate" to render
 // content when `component` is not a string tag name or HTMLElement.
-// We provide a delegate that uses Nix.js `mount()` to render templates.
+// We provide a delegate that uses Elur `mount()` to render templates.
 
 interface FrameworkDelegate {
     attachViewToDom: (
@@ -153,11 +153,11 @@ interface FrameworkDelegate {
 
 let _delegateHandle: { unmount: () => void } | null = null;
 
-const nixDelegate: FrameworkDelegate = {
+const elurDelegate: FrameworkDelegate = {
     async attachViewToDom(parentElement, userComponent, _props, cssClasses) {
-        // If userComponent is a function (NixTemplate factory), call it and mount
+        // If userComponent is a function (ElurTemplate factory), call it and mount
         if (typeof userComponent === "function") {
-            const template = (userComponent as () => NixTemplate)();
+            const template = (userComponent as () => ElurTemplate)();
             const handle = mount(template, parentElement);
             _delegateHandle = handle;
             return parentElement;
@@ -231,12 +231,12 @@ function createOverlayHandle<TDetail>(
 
         const token = (active?.token ?? 0) + 1;
 
-        // If `component` is a function (NixTemplate factory), inject our
-        // framework delegate so Ionic can render Nix.js templates inside
+        // If `component` is a function (ElurTemplate factory), inject our
+        // framework delegate so Ionic can render Elur templates inside
         // popover/modal overlays.
         const opts = { ...options };
         if (typeof opts.component === "function" && !opts.delegate) {
-            opts.delegate = nixDelegate;
+            opts.delegate = elurDelegate;
         }
 
         const el = await controller.create(opts);
@@ -345,7 +345,7 @@ export function createModal(): OverlayHandle {
  *
  * @example
  * ```ts
- * import { showToast } from "@deijose/nix-ionic";
+ * import { showToast } from "@elurjs/ionic";
  *
  * showToast({ message: "Saved!", duration: 1500 });
  * ```
@@ -363,7 +363,7 @@ export async function showToast(
  *
  * @example
  * ```ts
- * import { withLoading } from "@deijose/nix-ionic";
+ * import { withLoading } from "@elurjs/ionic";
  *
  * const data = await withLoading(
  *   { message: "Fetching..." },
@@ -389,7 +389,7 @@ export async function withLoading<T>(
  *
  * @example
  * ```ts
- * import { confirm } from "@deijose/nix-ionic";
+ * import { confirm } from "@elurjs/ionic";
  *
  * const yes = await confirm({
  *   header: "Delete",
@@ -428,26 +428,26 @@ export {
 };
 
 // =============================================================================
-// --- Nix.js delegate for modal/popover content mounting ---
+// --- Elur delegate for modal/popover content mounting ---
 // =============================================================================
 
 /**
- * A Nix.js FrameworkDelegate that can mount NixTemplate or NixComponent
+ * A Elur FrameworkDelegate that can mount ElurTemplate or ElurComponent
  * instances inside Ionic overlays (modal, popover).
  *
  * Ionic's `FrameworkDelegate` interface has two methods:
  *   - `attachViewToDom(container, component, props, cssClasses)` → HTMLElement
  *   - `removeViewFromDom(container, component)` → void
  *
- * For Nix.js, "component" is a function that returns a NixTemplate or
- * NixComponent. The delegate creates a wrapper div, mounts the Nix.js
+ * For Elur, "component" is a function that returns a ElurTemplate or
+ * ElurComponent. The delegate creates a wrapper div, mounts the Elur
  * content into it, appends it to the overlay, and tracks the unmount
  * handle for cleanup on dismiss.
  */
-export interface NixOverlayDelegate {
+export interface ElurOverlayDelegate {
     attachViewToDom(
         container: HTMLElement,
-        component: () => NixTemplate | NixComponent,
+        component: () => ElurTemplate | ElurComponent,
         propsOrData?: Record<string, unknown>,
         cssClasses?: string[],
     ): Promise<HTMLElement>;
@@ -455,16 +455,16 @@ export interface NixOverlayDelegate {
 }
 
 /**
- * Create a Nix.js delegate for use with Ionic modal/popover controllers.
- * The delegate mounts Nix.js templates inside overlays and cleans up on
+ * Create a Elur delegate for use with Ionic modal/popover controllers.
+ * The delegate mounts Elur templates inside overlays and cleans up on
  * removal.
  *
  * @example
  * ```ts
- * import { createNixDelegate, createModal } from "@deijose/nix-ionic";
- * import { html, signal } from "@deijose/nix-js";
+ * import { createElurDelegate, createModal } from "@elurjs/ionic";
+ * import { html, signal } from "@elurjs/core";
  *
- * const delegate = createNixDelegate();
+ * const delegate = createElurDelegate();
  * const modal = createModal();
  *
  * // The delegate is passed via `delegate` option
@@ -474,23 +474,23 @@ export interface NixOverlayDelegate {
  * });
  * ```
  */
-export function createNixDelegate(): NixOverlayDelegate {
+export function createElurDelegate(): ElurOverlayDelegate {
     // Track unmount handles by wrapper element for cleanup
     const handles = new Map<HTMLElement, () => void>();
 
     return {
         async attachViewToDom(
             container: HTMLElement,
-            component: () => NixTemplate | NixComponent,
+            component: () => ElurTemplate | ElurComponent,
             _propsOrData?: Record<string, unknown>,
             cssClasses?: string[],
         ): Promise<HTMLElement> {
-            // Create a wrapper div to hold the Nix.js content
+            // Create a wrapper div to hold the Elur content
             const wrapper = document.createElement("div");
             if (cssClasses) {
                 for (const cls of cssClasses) wrapper.classList.add(cls);
             }
-            // Mount the Nix.js content into the wrapper
+            // Mount the Elur content into the wrapper
             const handle = mount(component(), wrapper);
             handles.set(wrapper, handle.unmount);
             // Append to the overlay container
@@ -518,13 +518,13 @@ export function createNixDelegate(): NixOverlayDelegate {
 // =============================================================================
 
 /**
- * Options for presenting a modal with Nix.js content.
- * The `component` function returns a NixTemplate or NixComponent that will
- * be mounted inside the modal via the Nix.js delegate.
+ * Options for presenting a modal with Elur content.
+ * The `component` function returns a ElurTemplate or ElurComponent that will
+ * be mounted inside the modal via the Elur delegate.
  */
 export interface ModalOptions {
-    /** Function returning the Nix.js content to mount inside the modal. */
-    component: () => NixTemplate | NixComponent;
+    /** Function returning the Elur content to mount inside the modal. */
+    component: () => ElurTemplate | ElurComponent;
     /** Component props/data passed to the delegate. */
     componentProps?: Record<string, unknown>;
     /** CSS classes to add to the mounted content wrapper. */
@@ -534,17 +534,17 @@ export interface ModalOptions {
     showBackdrop?: boolean;
     animated?: boolean;
     canDismiss?: boolean | (() => Promise<boolean>);
-    /** Custom delegate (if not provided, a default Nix.js delegate is used). */
-    delegate?: NixOverlayDelegate;
+    /** Custom delegate (if not provided, a default Elur delegate is used). */
+    delegate?: ElurOverlayDelegate;
     [key: string]: unknown;
 }
 
 /**
- * Options for presenting a popover with Nix.js content.
+ * Options for presenting a popover with Elur content.
  */
 export interface PopoverOptions {
-    /** Function returning the Nix.js content to mount inside the popover. */
-    component: () => NixTemplate | NixComponent;
+    /** Function returning the Elur content to mount inside the popover. */
+    component: () => ElurTemplate | ElurComponent;
     /** Component props/data passed to the delegate. */
     componentProps?: Record<string, unknown>;
     /** CSS classes to add to the mounted content wrapper. */
@@ -555,20 +555,20 @@ export interface PopoverOptions {
     backdropDismiss?: boolean;
     showBackdrop?: boolean;
     animated?: boolean;
-    /** Custom delegate (if not provided, a default Nix.js delegate is used). */
-    delegate?: NixOverlayDelegate;
+    /** Custom delegate (if not provided, a default Elur delegate is used). */
+    delegate?: ElurOverlayDelegate;
     [key: string]: unknown;
 }
 
 /**
- * Enhanced modal controller with Nix.js delegate support.
+ * Enhanced modal controller with Elur delegate support.
  * Unlike the basic `createModal()`, this automatically creates and uses
- * a Nix.js delegate so `component` can be a NixTemplate/NixComponent.
+ * a Elur delegate so `component` can be a ElurTemplate/ElurComponent.
  *
  * @example
  * ```ts
- * import { createModalController, createNixDelegate } from "@deijose/nix-ionic";
- * import { html, signal } from "@deijose/nix-js";
+ * import { createModalController, createElurDelegate } from "@elurjs/ionic";
+ * import { html, signal } from "@elurjs/core";
  *
  * const modal = createModalController();
  *
@@ -589,8 +589,8 @@ export interface PopoverOptions {
  * });
  * ```
  */
-export function createModalController(delegate?: NixOverlayDelegate): OverlayHandle {
-    const nixDelegate = delegate ?? createNixDelegate();
+export function createModalController(delegate?: ElurOverlayDelegate): OverlayHandle {
+    const elurDelegate = delegate ?? createElurDelegate();
     const handle = createOverlayHandle(modalController as any);
 
     // Wrap present to inject the delegate and convert component
@@ -598,7 +598,7 @@ export function createModalController(delegate?: NixOverlayDelegate): OverlayHan
     async function present(options: ModalOptions): Promise<void> {
         await originalPresent({
             ...options,
-            delegate: nixDelegate,
+            delegate: elurDelegate,
         });
     }
 
@@ -606,14 +606,14 @@ export function createModalController(delegate?: NixOverlayDelegate): OverlayHan
 }
 
 /**
- * Enhanced popover controller with Nix.js delegate support.
- * Automatically creates and uses a Nix.js delegate so `component` can be
- * a NixTemplate/NixComponent.
+ * Enhanced popover controller with Elur delegate support.
+ * Automatically creates and uses a Elur delegate so `component` can be
+ * a ElurTemplate/ElurComponent.
  *
  * @example
  * ```ts
- * import { createPopoverController } from "@deijose/nix-ionic";
- * import { html } from "@deijose/nix-js";
+ * import { createPopoverController } from "@elurjs/ionic";
+ * import { html } from "@elurjs/core";
  *
  * const popover = createPopoverController();
  *
@@ -624,15 +624,15 @@ export function createModalController(delegate?: NixOverlayDelegate): OverlayHan
  * });
  * ```
  */
-export function createPopoverController(delegate?: NixOverlayDelegate): OverlayHandle {
-    const nixDelegate = delegate ?? createNixDelegate();
+export function createPopoverController(delegate?: ElurOverlayDelegate): OverlayHandle {
+    const elurDelegate = delegate ?? createElurDelegate();
     const handle = createOverlayHandle(popoverController as any);
 
     const originalPresent = handle.present;
     async function present(options: PopoverOptions): Promise<void> {
         await originalPresent({
             ...options,
-            delegate: nixDelegate,
+            delegate: elurDelegate,
         });
     }
 
@@ -678,7 +678,7 @@ export interface PickerOptions {
  *
  * @example
  * ```ts
- * import { createPicker } from "@deijose/nix-ionic";
+ * import { createPicker } from "@elurjs/ionic";
  *
  * const picker = createPicker();
  * await picker.present({

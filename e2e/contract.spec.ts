@@ -3,12 +3,12 @@ import { test, expect } from "@playwright/test";
 /**
  * Contract tests with REAL @ionic/core — no mocks.
  *
- * These tests verify that nix-ionic correctly integrates with the actual
+ * These tests verify that elur-ionic correctly integrates with the actual
  * Ionic Core custom elements, their APIs, and their lifecycle behavior.
  * They do NOT mock `commit`, controllers, or animations.
  *
  * Unlike the navigation E2E tests, these focus on the contract between
- * nix-ionic and Ionic Core APIs:
+ * elur-ionic and Ionic Core APIs:
  *   - Component registration and custom element definitions
  *   - ion-router-outlet.commit() behavior
  *   - Lifecycle event order and timing

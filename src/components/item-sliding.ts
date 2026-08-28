@@ -2,8 +2,8 @@
  * Direct subpath import for ion-item-sliding — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonItemSliding } from "@deijose/nix-ionic/components/item-sliding";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonItemSliding } from "@elurjs/ionic/components/item-sliding";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonItemSliding);
  * ```

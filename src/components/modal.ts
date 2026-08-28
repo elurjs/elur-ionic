@@ -2,8 +2,8 @@
  * Direct subpath import for ion-modal — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonModal } from "@deijose/nix-ionic/components/modal";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonModal } from "@elurjs/ionic/components/modal";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonModal);
  * ```

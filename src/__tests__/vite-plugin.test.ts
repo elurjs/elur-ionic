@@ -1,14 +1,14 @@
 import { describe, it, expect, vi } from "vitest";
-import { nixIonic, generateRegistrationModule } from "../vite-plugin.js";
-import type { NixIonicPluginOptions } from "../vite-plugin.js";
+import { elurIonic, generateRegistrationModule } from "../vite-plugin.js";
+import type { ElurIonicPluginOptions } from "../vite-plugin.js";
 import { tagToSubpath, tagToDefinerName } from "../components/manifest.js";
 
 // Helper: simulate the plugin's transform + load cycle
 async function runPlugin(
     files: Record<string, string>,
-    options: NixIonicPluginOptions = {},
+    options: ElurIonicPluginOptions = {},
 ): Promise<string> {
-    const plugin = nixIonic(options);
+    const plugin = elurIonic(options);
     const ctx = {
         warn: vi.fn(),
     };
@@ -26,28 +26,28 @@ async function runPlugin(
     }
 
     // Load phase: generate virtual module
-    const resolvedId = (plugin.resolveId as any).call(ctx, "virtual:nix-ionic/registration");
+    const resolvedId = (plugin.resolveId as any).call(ctx, "virtual:elur-ionic/registration");
     if (!resolvedId) return "";
 
     const loaded = (plugin.load as any).call(ctx, resolvedId);
     return typeof loaded === "string" ? loaded : "";
 }
 
-describe("nixIonic Vite plugin", () => {
+describe("elurIonic Vite plugin", () => {
     describe("tag scanning", () => {
         it("detects <ion-button> in html`` template", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const tpl = html\`<ion-button>Click</ion-button>\`;
             `;
             const output = await runPlugin({ "/src/app.ts": code });
             expect(output).toContain("defineIonButton");
-            expect(output).toContain("@deijose/nix-ionic/components/button");
+            expect(output).toContain("@elurjs/ionic/components/button");
         });
 
         it("detects multiple tags in one template", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const tpl = html\`
                     <ion-header><ion-toolbar><ion-title>App</ion-title></ion-toolbar></ion-header>
                     <ion-content><ion-button>Go</ion-button></ion-content>
@@ -63,8 +63,8 @@ describe("nixIonic Vite plugin", () => {
 
         it("detects tags across multiple files", async () => {
             const files = {
-                "/src/page1.ts": `import { html } from "@deijose/nix-js"; const t = html\`<ion-button>A</ion-button>\`;`,
-                "/src/page2.ts": `import { html } from "@deijose/nix-js"; const t = html\`<ion-card>B</ion-card>\`;`,
+                "/src/page1.ts": `import { html } from "@elurjs/core"; const t = html\`<ion-button>A</ion-button>\`;`,
+                "/src/page2.ts": `import { html } from "@elurjs/core"; const t = html\`<ion-card>B</ion-card>\`;`,
             };
             const output = await runPlugin(files);
             expect(output).toContain("defineIonButton");
@@ -73,7 +73,7 @@ describe("nixIonic Vite plugin", () => {
 
         it("ignores non-ion tags", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const t = html\`<div><span>hello</span></div>\`;
             `;
             const output = await runPlugin({ "/src/app.ts": code });
@@ -82,7 +82,7 @@ describe("nixIonic Vite plugin", () => {
 
         it("ignores legacy tags (ion-router, ion-route)", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const t = html\`<ion-router><ion-route></ion-route></ion-router>\`;
             `;
             const output = await runPlugin({ "/src/app.ts": code });
@@ -94,7 +94,7 @@ describe("nixIonic Vite plugin", () => {
     describe("icon scanning", () => {
         it("detects static icon names", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const t = html\`<ion-icon name="heart"></ion-icon>\`;
             `;
             const output = await runPlugin({ "/src/app.ts": code });
@@ -104,7 +104,7 @@ describe("nixIonic Vite plugin", () => {
 
         it("detects multiple icons", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const t = html\`
                     <ion-icon name="star"></ion-icon>
                     <ion-icon name="home-outline"></ion-icon>
@@ -119,36 +119,36 @@ describe("nixIonic Vite plugin", () => {
     describe("dynamic detection", () => {
         it("warns on dynamic tags", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const tag = "button";
                 const t = html\`<ion-\${tag}>Click</ion-\${tag}>\`;
             `;
             const warn = vi.fn();
-            const plugin = nixIonic({ diagnostics: true });
+            const plugin = elurIonic({ diagnostics: true });
             (plugin.transform as any).call({ warn }, code, "/src/dynamic.ts");
             expect(warn).toHaveBeenCalled();
         });
 
         it("warns on dynamic icon names", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const icon = "heart";
                 const t = html\`<ion-icon name=\${icon}></ion-icon>\`;
             `;
             const warn = vi.fn();
-            const plugin = nixIonic({ diagnostics: true });
+            const plugin = elurIonic({ diagnostics: true });
             (plugin.transform as any).call({ warn }, code, "/src/dynamic.ts");
             expect(warn).toHaveBeenCalled();
         });
 
         it("suppresses warnings when diagnostics=false", async () => {
             const code = `
-                import { html } from "@deijose/nix-js";
+                import { html } from "@elurjs/core";
                 const tag = "button";
                 const t = html\`<ion-\${tag}>Click</ion-\${tag}>\`;
             `;
             const warn = vi.fn();
-            const plugin = nixIonic({ diagnostics: false });
+            const plugin = elurIonic({ diagnostics: false });
             (plugin.transform as any).call({ warn }, code, "/src/dynamic.ts");
             expect(warn).not.toHaveBeenCalled();
         });
@@ -157,7 +157,7 @@ describe("nixIonic Vite plugin", () => {
     describe("allowlists", () => {
         it("allowTags are included in registration even if not detected", async () => {
             const output = await runPlugin(
-                { "/src/app.ts": `import { html } from "@deijose/nix-js"; const t = html\`<div>hi</div>\`;` },
+                { "/src/app.ts": `import { html } from "@elurjs/core"; const t = html\`<div>hi</div>\`;` },
                 { allowTags: ["ion-button", "ion-card"] },
             );
             expect(output).toContain("defineIonButton");
@@ -166,7 +166,7 @@ describe("nixIonic Vite plugin", () => {
 
         it("allowIcons are included in registration even if not detected", async () => {
             const output = await runPlugin(
-                { "/src/app.ts": `import { html } from "@deijose/nix-js"; const t = html\`<div>hi</div>\`;` },
+                { "/src/app.ts": `import { html } from "@elurjs/core"; const t = html\`<div>hi</div>\`;` },
                 { allowIcons: ["star", "heart"] },
             );
             expect(output).toContain("star");
@@ -176,20 +176,20 @@ describe("nixIonic Vite plugin", () => {
 
     describe("virtual module", () => {
         it("resolveId returns resolved path for virtual module", () => {
-            const plugin = nixIonic();
-            const result = (plugin.resolveId as any).call({}, "virtual:nix-ionic/registration");
-            expect(result).toBe("\0virtual:nix-ionic/registration");
+            const plugin = elurIonic();
+            const result = (plugin.resolveId as any).call({}, "virtual:elur-ionic/registration");
+            expect(result).toBe("\0virtual:elur-ionic/registration");
         });
 
         it("resolveId returns null for non-virtual ids", () => {
-            const plugin = nixIonic();
+            const plugin = elurIonic();
             const result = (plugin.resolveId as any).call({}, "other-module");
             expect(result).toBeFalsy();
         });
 
         it("load returns empty export when autoRegister=false", async () => {
             const output = await runPlugin(
-                { "/src/app.ts": `import { html } from "@deijose/nix-js"; const t = html\`<ion-button>A</ion-button>\`;` },
+                { "/src/app.ts": `import { html } from "@elurjs/core"; const t = html\`<ion-button>A</ion-button>\`;` },
                 { autoRegister: false },
             );
             expect(output).toContain("autoRegister disabled");
@@ -203,30 +203,30 @@ describe("nixIonic Vite plugin", () => {
                 new Set(["heart"]),
                 {},
             );
-            expect(output).toContain(`import { defineIonButton } from "@deijose/nix-ionic/components/button"`);
-            expect(output).toContain(`import { defineIonCard } from "@deijose/nix-ionic/components/card"`);
+            expect(output).toContain(`import { defineIonButton } from "@elurjs/ionic/components/button"`);
+            expect(output).toContain(`import { defineIonCard } from "@elurjs/ionic/components/card"`);
             expect(output).toContain("ionicons/icons");
-            expect(output).toContain("initializeNixIonic");
+            expect(output).toContain("initializeElurIonic");
             expect(output).toContain("registerIonicComponents");
             expect(output).toContain("registerIonicons");
         });
 
         it("generates empty registration when no tags/icons", () => {
             const output = generateRegistrationModule(new Set(), new Set(), {});
-            expect(output).toContain("initializeNixIonic");
+            expect(output).toContain("initializeElurIonic");
             // No component/icon calls (only the import is present)
             expect(output).not.toMatch(/registerIonicComponents\(/);
             expect(output).not.toMatch(/registerIonicons\(/);
         });
 
-        it("skips core tags that initializeNixIonic already registers", () => {
+        it("skips core tags that initializeElurIonic already registers", () => {
             const output = generateRegistrationModule(
                 new Set(["ion-app", "ion-router-outlet", "ion-back-button", "ion-icon", "ion-button"]),
                 new Set(),
                 {},
             );
             // ion-button should generate an import
-            expect(output).toContain(`import { defineIonButton } from "@deijose/nix-ionic/components/button"`);
+            expect(output).toContain(`import { defineIonButton } from "@elurjs/ionic/components/button"`);
             // Core tags should NOT generate imports
             expect(output).not.toContain("components/app");
             expect(output).not.toContain("components/router-outlet");

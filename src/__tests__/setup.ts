@@ -1,4 +1,4 @@
-import { cleanup } from "@deijose/nix-js-testing";
+import { cleanup } from "@elurjs/core-testing";
 import { afterEach } from "vitest";
 
 afterEach(() => {

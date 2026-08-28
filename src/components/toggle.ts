@@ -2,8 +2,8 @@
  * Direct subpath import for ion-toggle — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonToggle } from "@deijose/nix-ionic/components/toggle";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonToggle } from "@elurjs/ionic/components/toggle";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonToggle);
  * ```

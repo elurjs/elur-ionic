@@ -67,7 +67,7 @@ import {
     createPicker,
     createModalController,
     createPopoverController,
-    createNixDelegate,
+    createElurDelegate,
     showToast,
     withLoading,
     confirm,
@@ -77,7 +77,7 @@ import {
     modalController,
     popoverController,
 } from "../overlays.js";
-import { html } from "@deijose/nix-js";
+import { html } from "@elurjs/core";
 
 describe("overlay controllers (create* pattern)", () => {
     beforeEach(() => {
@@ -240,15 +240,15 @@ describe("overlay controllers (create* pattern)", () => {
         });
     });
 
-    describe("createNixDelegate", () => {
+    describe("createElurDelegate", () => {
         it("creates a delegate with attachViewToDom and removeViewFromDom", () => {
-            const delegate = createNixDelegate();
+            const delegate = createElurDelegate();
             expect(typeof delegate.attachViewToDom).toBe("function");
             expect(typeof delegate.removeViewFromDom).toBe("function");
         });
 
-        it("mounts Nix.js content into a container", async () => {
-            const delegate = createNixDelegate();
+        it("mounts Elur content into a container", async () => {
+            const delegate = createElurDelegate();
             const container = document.createElement("div");
             const component = () => html`<p data-testid="delegate-content">Hello</p>`;
 
@@ -258,7 +258,7 @@ describe("overlay controllers (create* pattern)", () => {
         });
 
         it("cleans up content on removeViewFromDom", async () => {
-            const delegate = createNixDelegate();
+            const delegate = createElurDelegate();
             const container = document.createElement("div");
             const component = () => html`<p data-testid="cleanup-test">Content</p>`;
 
@@ -270,7 +270,7 @@ describe("overlay controllers (create* pattern)", () => {
         });
 
         it("applies cssClasses to the wrapper", async () => {
-            const delegate = createNixDelegate();
+            const delegate = createElurDelegate();
             const container = document.createElement("div");
             const component = () => html`<p>Test</p>`;
 
@@ -281,7 +281,7 @@ describe("overlay controllers (create* pattern)", () => {
     });
 
     describe("createModalController", () => {
-        it("presents a modal with Nix.js delegate", async () => {
+        it("presents a modal with Elur delegate", async () => {
             const modal = createModalController();
             await modal.present({
                 component: () => html`<ion-content><p>Modal content</p></ion-content>`,
@@ -298,7 +298,7 @@ describe("overlay controllers (create* pattern)", () => {
         });
 
         it("accepts custom delegate", async () => {
-            const customDelegate = createNixDelegate();
+            const customDelegate = createElurDelegate();
             const modal = createModalController(customDelegate);
             await modal.present({
                 component: () => html`<p>Custom</p>`,
@@ -329,7 +329,7 @@ describe("overlay controllers (create* pattern)", () => {
     });
 
     describe("createPopoverController", () => {
-        it("presents a popover with Nix.js delegate", async () => {
+        it("presents a popover with Elur delegate", async () => {
             const popover = createPopoverController();
             await popover.present({
                 component: () => html`<ion-content><p>Popover</p></ion-content>`,

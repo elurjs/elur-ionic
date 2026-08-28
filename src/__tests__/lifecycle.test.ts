@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { html } from "@deijose/nix-js";
+import { html } from "@elurjs/core";
 import {
     createPageLifecycle,
     IonPage,

@@ -2,8 +2,8 @@
  * Direct subpath import for ion-breadcrumb — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonBreadcrumb } from "@deijose/nix-ionic/components/breadcrumb";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonBreadcrumb } from "@elurjs/ionic/components/breadcrumb";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonBreadcrumb);
  * ```

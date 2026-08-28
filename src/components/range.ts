@@ -2,8 +2,8 @@
  * Direct subpath import for ion-range — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonRange } from "@deijose/nix-ionic/components/range";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonRange } from "@elurjs/ionic/components/range";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonRange);
  * ```

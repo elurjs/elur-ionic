@@ -2,8 +2,8 @@
  * Direct subpath import for ion-tabs — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonTabs } from "@deijose/nix-ionic/components/tabs";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonTabs } from "@elurjs/ionic/components/tabs";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonTabs);
  * ```

@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Playwright E2E config for nix-ionic.
+ * Playwright E2E config for elur-ionic.
  *
  * Tests run against a Vite dev server serving a real app with @ionic/core
  * installed (no mocks). The server starts on port 5174.

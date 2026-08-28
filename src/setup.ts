@@ -1,9 +1,9 @@
 /**
- * @deijose/nix-ionic / setup.ts — v2 modular setup
+ * @elurjs/ionic / setup.ts — v2 modular setup
  *
- * Architecture (Nix Ionic 2):
+ * Architecture (Elur Ionic 2):
  *
- *   initializeNixIonic(options)   — configures Ionic Core once; returns a
+ *   initializeElurIonic(options)   — configures Ionic Core once; returns a
  *                                    handle with status/diagnostics. Safe to
  *                                    call again (no-op after first init, but
  *                                    validates incompatible config changes).
@@ -17,7 +17,7 @@
  *                                    Merges new icons into the global set;
  *                                    warns on name collisions.
  *
- *   setupNixIonic(options)        — backward-compatible facade that calls all
+ *   setupElurIonic(options)        — backward-compatible facade that calls all
  *                                    three. Existing apps work unchanged.
  *
  * Key changes vs v1.x:
@@ -26,12 +26,12 @@
  *   - No `unpkg@latest` default asset path: uses official `setAssetPath` from
  *     ionicons. CDN is opt-in only.
  *   - SSR-safe: no `window` access at module load; guards in each function.
- *   - Returns a handle with diagnostics from `initializeNixIonic`.
+ *   - Returns a handle with diagnostics from `initializeElurIonic`.
  */
 
 import { initialize } from "@ionic/core/components";
 
-// Minimal core components — the bare minimum any nix-ionic app needs.
+// Minimal core components — the bare minimum any elur-ionic app needs.
 import { defineCustomElement as defineIonApp } from "@ionic/core/components/ion-app.js";
 import { defineCustomElement as defineIonRouterOutlet } from "@ionic/core/components/ion-router-outlet.js";
 import { defineCustomElement as defineIonBackButton } from "@ionic/core/components/ion-back-button.js";
@@ -45,8 +45,8 @@ import { arrowBack, arrowBackSharp, chevronBack, chevronBackSharp } from "ionico
 export type ComponentDefiner = () => void;
 export type IconDefinitionMap = Record<string, string>;
 
-export interface SetupNixIonicOptions {
-    /** @deprecated Use `icons` mode in `initializeNixIonic` instead. */
+export interface SetupElurIonicOptions {
+    /** @deprecated Use `icons` mode in `initializeElurIonic` instead. */
     iconAssetPath?: string;
     components?: ComponentDefiner[];
     icons?: IconDefinitionMap;
@@ -100,14 +100,14 @@ function _hasCustomElements(): boolean {
 }
 
 /**
- * Initialize Ionic Core for Nix.js. Configures the runtime once.
+ * Initialize Ionic Core for Elur. Configures the runtime once.
  *
  * Subsequent calls are no-ops for the core init, but `registerIonicComponents`
  * and `registerIonicons` remain incremental regardless.
  *
  * Returns a handle with diagnostics.
  */
-export function initializeNixIonic(options: InitializeOptions = {}): SetupHandle {
+export function initializeElurIonic(options: InitializeOptions = {}): SetupHandle {
     const diagnostics: string[] = [];
 
     if (!_hasWindow()) {
@@ -171,7 +171,7 @@ export function initializeNixIonic(options: InitializeOptions = {}): SetupHandle
 export function registerIonicComponents(...definers: ComponentDefiner[]): void {
     if (!_hasCustomElements()) {
         if (_hasWindow()) {
-            console.warn("[nix-ionic] customElements unavailable; cannot register components");
+            console.warn("[elur-ionic] customElements unavailable; cannot register components");
         }
         return;
     }
@@ -183,7 +183,7 @@ export function registerIonicComponents(...definers: ComponentDefiner[]): void {
             // Ionic definers internally guard against double-registration,
             // but we catch just in case.
             if (e instanceof Error && !e.message.includes("already been registered")) {
-                console.warn(`[nix-ionic] Component registration error: ${e.message}`);
+                console.warn(`[elur-ionic] Component registration error: ${e.message}`);
             }
         }
     }
@@ -195,7 +195,7 @@ export function registerIonicComponents(...definers: ComponentDefiner[]): void {
  *
  * @example
  * ```ts
- * import { registerIonicons } from "@deijose/nix-ionic";
+ * import { registerIonicons } from "@elurjs/ionic";
  * import { home, homeOutline } from "ionicons/icons";
  *
  * registerIonicons({ home, "home-outline": homeOutline });
@@ -210,7 +210,7 @@ export function registerIonicons(map: IconDefinitionMap): void {
     for (const [name, svg] of Object.entries(map)) {
         if (_registeredIconNames.has(name)) {
             // Overwriting is allowed (addIcons merges), but warn in dev.
-            console.warn(`[nix-ionic] Icon "${name}" already registered; overwriting.`);
+            console.warn(`[elur-ionic] Icon "${name}" already registered; overwriting.`);
         }
         toAdd[name] = svg;
         _registeredIconNames.add(name);
@@ -222,16 +222,16 @@ export function registerIonicons(map: IconDefinitionMap): void {
 }
 
 /**
- * Backward-compatible facade. Calls `initializeNixIonic`, then registers
+ * Backward-compatible facade. Calls `initializeElurIonic`, then registers
  * any extra components and icons passed via options.
  *
  * Existing v1.x apps work unchanged. New apps should prefer the granular
- * functions (`initializeNixIonic` + `registerIonicComponents` + `registerIonicons`)
+ * functions (`initializeElurIonic` + `registerIonicComponents` + `registerIonicons`)
  * for lazy loading and HMR support.
  *
- * @deprecated Prefer `initializeNixIonic` + `registerIonicComponents` + `registerIonicons` for new code.
+ * @deprecated Prefer `initializeElurIonic` + `registerIonicComponents` + `registerIonicons` for new code.
  */
-export function setupNixIonic(options: SetupNixIonicOptions = {}): void {
+export function setupElurIonic(options: SetupElurIonicOptions = {}): void {
     if (!_hasWindow()) return;
 
     // Map old options to new init
@@ -240,7 +240,7 @@ export function setupNixIonic(options: SetupNixIonicOptions = {}): void {
         initOpts.icons = { mode: "assets", path: options.iconAssetPath };
     }
 
-    const handle = initializeNixIonic(initOpts);
+    const handle = initializeElurIonic(initOpts);
 
     // Register extra components (always incremental, even after init)
     if (options.components) {

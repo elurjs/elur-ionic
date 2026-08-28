@@ -2,8 +2,8 @@
  * Direct subpath import for ion-accordion — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonAccordion } from "@deijose/nix-ionic/components/accordion";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonAccordion } from "@elurjs/ionic/components/accordion";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonAccordion);
  * ```

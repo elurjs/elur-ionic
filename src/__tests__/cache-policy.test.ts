@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { html } from "@deijose/nix-js";
-import { createRouter } from "@deijose/nix-js";
-import { _resetRouter } from "@deijose/nix-js/router";
-import { render, cleanup, waitFor } from "@deijose/nix-js-testing";
+import { html } from "@elurjs/core";
+import { createRouter } from "@elurjs/core";
+import { _resetRouter } from "@elurjs/core/router";
+import { render, cleanup, waitFor } from "@elurjs/core-testing";
 import { IonRouterOutlet, type CachePolicy } from "../IonRouterOutlet.js";
 import "./mocks/ionic.js";
 

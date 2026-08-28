@@ -14,15 +14,15 @@ export default defineConfig({
     build: {
         lib: {
             entry: resolve(__dirname, "src/index.ts"),
-            name: "NixIonic",
+            name: "ElurIonic",
             fileName: "index",
             formats: ["es", "cjs"],
         },
         rollupOptions: {
-            external: ["@deijose/nix-js"],
+            external: ["@elurjs/core"],
             output: {
                 globals: {
-                    "@deijose/nix-js": "NixJs",
+                    "@elurjs/core": "ElurJs",
                 },
             },
         },

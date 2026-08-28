@@ -1,5 +1,5 @@
 /**
- * @deijose/nix-ionic / lifecycle.ts  —  v2
+ * @elurjs/ionic / lifecycle.ts  —  v2
  *
  * Page-lifecycle plumbing identical to v1. The hooks (ionViewWillEnter,
  * ionViewDidEnter, ionViewWillLeave, ionViewDidLeave) still come from the
@@ -9,9 +9,9 @@
  * Nothing here needed to change for the single-router refactor.
  */
 
-import { signal, watch } from "@deijose/nix-js";
-import type { Signal } from "@deijose/nix-js";
-import { NixComponent } from "@deijose/nix-js";
+import { signal, watch } from "@elurjs/core";
+import type { Signal } from "@elurjs/core";
+import { ElurComponent } from "@elurjs/core";
 
 export interface PageLifecycle {
     willEnter: Signal<number>;
@@ -35,7 +35,7 @@ export function createPageLifecycle(): PageLifecycle {
  * subclass calling `super.onInit()`. The outlet calls this method directly
  * and stores the returned disposer so the watches are torn down with the view.
  */
-export const _connectIonicLifecycle = Symbol("nix-ionic:connectLifecycle");
+export const _connectIonicLifecycle = Symbol("elur-ionic:connectLifecycle");
 
 /**
  * Class-based pages. Subclass and implement any of the hooks.
@@ -51,7 +51,7 @@ export const _connectIonicLifecycle = Symbol("nix-ionic:connectLifecycle");
  * directly and disposes the watches when the view is cleaned up. Subclasses
  * may override `onInit` freely for their own setup without calling super.
  */
-export abstract class IonPage extends NixComponent {
+export abstract class IonPage extends ElurComponent {
     private __lc: PageLifecycle;
     private __lifecycleDisposers: Array<() => void> = [];
 

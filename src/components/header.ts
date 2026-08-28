@@ -2,8 +2,8 @@
  * Direct subpath import for ion-header — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonHeader } from "@deijose/nix-ionic/components/header";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonHeader } from "@elurjs/ionic/components/header";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonHeader);
  * ```

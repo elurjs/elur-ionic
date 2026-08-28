@@ -1,13 +1,13 @@
 /**
- * @deijose/nix-ionic — v2 single-router architecture
+ * @elurjs/ionic — v2 single-router architecture
  *
  * BREAKING CHANGES (v1.x → v2):
  *
  *   ❌ Removed:
- *      - nixIonicRouter()          → use nixRouter() from @deijose/nix-js
- *      - nixIonicRouterState()     → use nixRouter() from @deijose/nix-js
- *      - RouterInstance type       → use Router from @deijose/nix-js
- *      - RouterState type          → use Router from @deijose/nix-js
+ *      - elurIonicRouter()          → use elurRouter() from @elurjs/core
+ *      - elurIonicRouterState()     → use elurRouter() from @elurjs/core
+ *      - RouterInstance type       → use Router from @elurjs/core
+ *      - RouterState type          → use Router from @elurjs/core
  *      - <ion-router> and <ion-route> are no longer rendered/registered
  *
  *   ✅ Same API surface:
@@ -16,7 +16,7 @@
  *      - IonPage                  (no changes)
  *      - PageLifecycle + helpers  (no changes)
  *      - createBottomTabBar       (same signature)
- *      - setupNixIonic            (same signature; smaller default bundle)
+ *      - setupElurIonic            (same signature; smaller default bundle)
  *
  *   ➕ New:
  *      - IonRouterOutletOptions.tabs  for per-tab navigation stacks
@@ -26,7 +26,7 @@
  *   ⚠ User migration cheatsheet:
  *      v1                                          v2
  *      ──                                          ──
- *      const r = nixIonicRouter();                 const r = nixRouter();
+ *      const r = elurIonicRouter();                 const r = elurRouter();
  *      r.path.value                                r.current.value
  *      r.navigate("/x", "forward")                 r.navigate("/x", { direction: "forward" })
  *      r.replace("/x")                             r.replace("/x")
@@ -50,15 +50,15 @@ export {
 } from "./lifecycle";
 
 export {
-    setupNixIonic,
-    initializeNixIonic,
+    setupElurIonic,
+    initializeElurIonic,
     registerIonicComponents,
     registerIonicons,
     addIcons,
     setAssetPath,
     type ComponentDefiner,
     type IconDefinitionMap,
-    type SetupNixIonicOptions,
+    type SetupElurIonicOptions,
     type InitializeOptions,
     type SetupHandle,
 } from "./setup";
@@ -90,7 +90,7 @@ export {
     createPicker,
     createModalController,
     createPopoverController,
-    createNixDelegate,
+    createElurDelegate,
     showToast,
     withLoading,
     confirm,
@@ -102,7 +102,7 @@ export {
     modalController,
     pickerController,
     type OverlayHandle,
-    type NixOverlayDelegate,
+    type ElurOverlayDelegate,
     type ModalOptions,
     type PopoverOptions,
     type PickerOptions,
@@ -131,10 +131,10 @@ export {
 // Re-export the core router so consumers don't need a second import for the
 // most common router calls.
 export {
-    nixRouter,
+    elurRouter,
     type Router,
     type NavigationIntent,
     type NavigationDirection,
     type NavigationAction,
     type NavigateOptions,
-} from "@deijose/nix-js";
+} from "@elurjs/core";

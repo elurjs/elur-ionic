@@ -2,8 +2,8 @@
  * Direct subpath import for ion-picker-column-option — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonPickerColumnOption } from "@deijose/nix-ionic/components/picker-column-option";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonPickerColumnOption } from "@elurjs/ionic/components/picker-column-option";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonPickerColumnOption);
  * ```

@@ -2,8 +2,8 @@
  * Direct subpath import for ion-textarea — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonTextarea } from "@deijose/nix-ionic/components/textarea";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonTextarea } from "@elurjs/ionic/components/textarea";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonTextarea);
  * ```

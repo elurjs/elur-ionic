@@ -2,8 +2,8 @@
  * Direct subpath import for ion-radio — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonRadio } from "@deijose/nix-ionic/components/radio";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonRadio } from "@elurjs/ionic/components/radio";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonRadio);
  * ```

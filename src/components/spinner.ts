@@ -2,8 +2,8 @@
  * Direct subpath import for ion-spinner — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonSpinner } from "@deijose/nix-ionic/components/spinner";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonSpinner } from "@elurjs/ionic/components/spinner";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonSpinner);
  * ```

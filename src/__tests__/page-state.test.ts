@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { signal } from "@deijose/nix-js";
+import { signal } from "@elurjs/core";
 import {
     createPageState,
     clearAllPageState,
@@ -84,7 +84,7 @@ describe("page-state persistence", () => {
             const state = createPageState("test-page", { query, count });
 
             state.save();
-            expect(sessionStorage.getItem("nix-ionic:test-page")).toBeTruthy();
+            expect(sessionStorage.getItem("elur-ionic:test-page")).toBeTruthy();
 
             // Change signals
             query.value = "changed";
@@ -109,15 +109,15 @@ describe("page-state persistence", () => {
             const state = createPageState("clear-test", { sig });
 
             state.save();
-            expect(sessionStorage.getItem("nix-ionic:clear-test")).toBeTruthy();
+            expect(sessionStorage.getItem("elur-ionic:clear-test")).toBeTruthy();
 
             state.clear();
-            expect(sessionStorage.getItem("nix-ionic:clear-test")).toBeNull();
+            expect(sessionStorage.getItem("elur-ionic:clear-test")).toBeNull();
         });
 
         it("exposes the storage key", () => {
             const state = createPageState("my-page", { x: signal(1) });
-            expect(state.key).toBe("nix-ionic:my-page");
+            expect(state.key).toBe("elur-ionic:my-page");
         });
     });
 
@@ -131,7 +131,7 @@ describe("page-state persistence", () => {
             state.save();
 
             // Good value should be saved
-            const raw = sessionStorage.getItem("nix-ionic:mixed");
+            const raw = sessionStorage.getItem("elur-ionic:mixed");
             expect(raw).toBeTruthy();
             const data = JSON.parse(raw!);
             expect(data.good).toBe("serializable");
@@ -152,7 +152,7 @@ describe("page-state persistence", () => {
             const state = createPageState("all-bad", { bad1, bad2 });
             state.save();
 
-            expect(sessionStorage.getItem("nix-ionic:all-bad")).toBeNull();
+            expect(sessionStorage.getItem("elur-ionic:all-bad")).toBeNull();
             warn.mockRestore();
         });
     });
@@ -162,16 +162,16 @@ describe("page-state persistence", () => {
             const sig = signal("data");
             const state = createPageState("default-storage", { sig });
             state.save();
-            expect(sessionStorage.getItem("nix-ionic:default-storage")).toBeTruthy();
-            expect(localStorage.getItem("nix-ionic:default-storage")).toBeNull();
+            expect(sessionStorage.getItem("elur-ionic:default-storage")).toBeTruthy();
+            expect(localStorage.getItem("elur-ionic:default-storage")).toBeNull();
         });
 
         it("uses localStorage when storage: 'local'", () => {
             const sig = signal("data");
             const state = createPageState("local-storage", { sig }, { storage: "local" });
             state.save();
-            expect(localStorage.getItem("nix-ionic:local-storage")).toBeTruthy();
-            expect(sessionStorage.getItem("nix-ionic:local-storage")).toBeNull();
+            expect(localStorage.getItem("elur-ionic:local-storage")).toBeTruthy();
+            expect(sessionStorage.getItem("elur-ionic:local-storage")).toBeNull();
         });
 
         it("restores from localStorage when storage: 'local'", () => {
@@ -198,54 +198,54 @@ describe("page-state persistence", () => {
             const sig = signal(1);
             const state = createPageState("settings", { sig }, { keySuffix: "user-123" });
             state.save();
-            expect(sessionStorage.getItem("nix-ionic:settings:user-123")).toBeTruthy();
-            expect(state.key).toBe("nix-ionic:settings:user-123");
+            expect(sessionStorage.getItem("elur-ionic:settings:user-123")).toBeTruthy();
+            expect(state.key).toBe("elur-ionic:settings:user-123");
         });
     });
 
     describe("clearAllPageState", () => {
-        it("clears all nix-ionic entries from sessionStorage", () => {
-            sessionStorage.setItem("nix-ionic:page1", "{}");
-            sessionStorage.setItem("nix-ionic:page2", "{}");
+        it("clears all elur-ionic entries from sessionStorage", () => {
+            sessionStorage.setItem("elur-ionic:page1", "{}");
+            sessionStorage.setItem("elur-ionic:page2", "{}");
             sessionStorage.setItem("other-app:data", "{}");
 
             clearAllPageState();
 
-            expect(sessionStorage.getItem("nix-ionic:page1")).toBeNull();
-            expect(sessionStorage.getItem("nix-ionic:page2")).toBeNull();
+            expect(sessionStorage.getItem("elur-ionic:page1")).toBeNull();
+            expect(sessionStorage.getItem("elur-ionic:page2")).toBeNull();
             expect(sessionStorage.getItem("other-app:data")).toBeTruthy(); // untouched
         });
 
         it("clears from localStorage when backend: 'local'", () => {
-            localStorage.setItem("nix-ionic:page1", "{}");
-            localStorage.setItem("nix-ionic:page2", "{}");
+            localStorage.setItem("elur-ionic:page1", "{}");
+            localStorage.setItem("elur-ionic:page2", "{}");
 
             clearAllPageState("local");
 
-            expect(localStorage.getItem("nix-ionic:page1")).toBeNull();
-            expect(localStorage.getItem("nix-ionic:page2")).toBeNull();
+            expect(localStorage.getItem("elur-ionic:page1")).toBeNull();
+            expect(localStorage.getItem("elur-ionic:page2")).toBeNull();
         });
 
         it("respects custom namespace", () => {
             sessionStorage.setItem("myapp:page1", "{}");
-            sessionStorage.setItem("nix-ionic:page2", "{}");
+            sessionStorage.setItem("elur-ionic:page2", "{}");
 
             clearAllPageState("session", "myapp");
 
             expect(sessionStorage.getItem("myapp:page1")).toBeNull();
-            expect(sessionStorage.getItem("nix-ionic:page2")).toBeTruthy(); // untouched
+            expect(sessionStorage.getItem("elur-ionic:page2")).toBeTruthy(); // untouched
         });
     });
 
     describe("corrupted data", () => {
         it("restore handles corrupted JSON gracefully", () => {
-            sessionStorage.setItem("nix-ionic:corrupt", "{invalid json}");
+            sessionStorage.setItem("elur-ionic:corrupt", "{invalid json}");
             const sig = signal("initial");
             const state = createPageState("corrupt", { sig });
             expect(state.restore()).toBe(false);
             expect(sig.value).toBe("initial");
             // Corrupted data should be cleared
-            expect(sessionStorage.getItem("nix-ionic:corrupt")).toBeNull();
+            expect(sessionStorage.getItem("elur-ionic:corrupt")).toBeNull();
         });
     });
 

@@ -6,10 +6,10 @@
  * chunk and defeats tree-shaking. Kept for migration convenience only.
  *
  * ```ts
- * import { setupNixIonic } from "@deijose/nix-ionic";
- * import { allComponents } from "@deijose/nix-ionic/bundles/all";
+ * import { setupElurIonic } from "@elurjs/ionic";
+ * import { allComponents } from "@elurjs/ionic/bundles/all";
  *
- * setupNixIonic({ components: allComponents }); // ⚠ not recommended
+ * setupElurIonic({ components: allComponents }); // ⚠ not recommended
  * ```
  */
 import type { ComponentDefiner } from "../setup";

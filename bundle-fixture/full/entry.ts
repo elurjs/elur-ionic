@@ -5,25 +5,25 @@
  * bundle size for consumers who import everything.
  */
 import {
-    initializeNixIonic,
+    initializeElurIonic,
     registerIonicComponents,
     createToast,
     createAlert,
     createModalController,
-    createNixDelegate,
+    createElurDelegate,
     IonRouterOutlet,
     IonPage,
-} from "@deijose/nix-ionic";
-import { allComponents } from "@deijose/nix-ionic/bundles/all";
+} from "@elurjs/ionic";
+import { allComponents } from "@elurjs/ionic/bundles/all";
 
-initializeNixIonic();
+initializeElurIonic();
 registerIonicComponents(...allComponents);
 
 export {
     createToast,
     createAlert,
     createModalController,
-    createNixDelegate,
+    createElurDelegate,
     IonRouterOutlet,
     IonPage,
     allComponents,

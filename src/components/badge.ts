@@ -2,8 +2,8 @@
  * Direct subpath import for ion-badge — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonBadge } from "@deijose/nix-ionic/components/badge";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonBadge } from "@elurjs/ionic/components/badge";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonBadge);
  * ```

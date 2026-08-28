@@ -2,8 +2,8 @@
  * Direct subpath import for ion-progress-bar — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonProgressBar } from "@deijose/nix-ionic/components/progress-bar";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonProgressBar } from "@elurjs/ionic/components/progress-bar";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonProgressBar);
  * ```

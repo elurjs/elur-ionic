@@ -1,5 +1,5 @@
 /**
- * @deijose/nix-ionic / navigation.ts
+ * @elurjs/ionic / navigation.ts
  *
  * NavigationManager — a single coordination authority for Ionic navigation.
  *
@@ -17,7 +17,7 @@
  *
  * @example
  * ```ts
- * import { NavigationManager } from "@deijose/nix-ionic";
+ * import { NavigationManager } from "@elurjs/ionic";
  *
  * const nav = new NavigationManager({ tabs: ["/home", "/search", "/profile"] });
  *
@@ -41,7 +41,7 @@
  * ```
  */
 
-import { signal, type Signal, type NavigationIntent, type NavigationDirection } from "@deijose/nix-js";
+import { signal, type Signal, type NavigationIntent, type NavigationDirection } from "@elurjs/core";
 
 // --- Types ---
 

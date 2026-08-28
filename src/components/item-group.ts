@@ -2,8 +2,8 @@
  * Direct subpath import for ion-item-group — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonItemGroup } from "@deijose/nix-ionic/components/item-group";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonItemGroup } from "@elurjs/ionic/components/item-group";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonItemGroup);
  * ```

@@ -1,5 +1,5 @@
 /**
- * Phase 0/1 — Bug reproduction & regression suite (Nix Ionic 2 plan).
+ * Phase 0/1 — Bug reproduction & regression suite (Elur Ionic 2 plan).
  *
  * All 10 bugs have been fixed (Phase 1). These tests are now permanent
  * regression guards (plain `it`). They were originally `it.fails` while the
@@ -18,9 +18,9 @@
  *   10. cache key omits query and uses non-robust encoding (collisions)
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { html, NixComponent, signal, createRouter, nixRouter } from "@deijose/nix-js";
-import { _resetRouter } from "@deijose/nix-js/router";
-import { render, cleanup, waitFor } from "@deijose/nix-js-testing";
+import { html, ElurComponent, signal, createRouter, elurRouter } from "@elurjs/core";
+import { _resetRouter } from "@elurjs/core/router";
+import { render, cleanup, waitFor } from "@elurjs/core-testing";
 import { IonRouterOutlet } from "../IonRouterOutlet.js";
 import { IonPage, type PageLifecycle } from "../index.js";
 import type { PageContext } from "../IonRouterOutlet.js";
@@ -47,7 +47,7 @@ describe("Phase 0 — bug reproduction (it.fails = bug present, promote to it wh
         const router = createRouter([{ path: "/" }, { path: "/leak" }]);
         let cleanedUp = false;
 
-        class LeakPage extends NixComponent {
+        class LeakPage extends ElurComponent {
             override onMount() {
                 return () => {
                     cleanedUp = true;
@@ -217,7 +217,7 @@ describe("Phase 0 — bug reproduction (it.fails = bug present, promote to it wh
         render(outlet.render());
         await flushMicrotasks();
 
-        const router = nixRouter();
+        const router = elurRouter();
         router.navigate("/protected", { direction: "forward" });
         await flushMicrotasks();
         await waitFor(() => expect(document.querySelector('[data-testid="protected"]')).toBeTruthy());

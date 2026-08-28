@@ -2,8 +2,8 @@
  * Direct subpath import for ion-infinite-scroll — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonInfiniteScroll } from "@deijose/nix-ionic/components/infinite-scroll";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonInfiniteScroll } from "@elurjs/ionic/components/infinite-scroll";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonInfiniteScroll);
  * ```

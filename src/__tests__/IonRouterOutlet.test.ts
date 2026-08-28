@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { html, NixComponent } from "@deijose/nix-js";
-import { createRouter, nixRouter } from "@deijose/nix-js";
-import { _resetRouter } from "@deijose/nix-js/router";
-import { render, cleanup, waitFor } from "@deijose/nix-js-testing";
+import { html, ElurComponent } from "@elurjs/core";
+import { createRouter, elurRouter } from "@elurjs/core";
+import { _resetRouter } from "@elurjs/core/router";
+import { render, cleanup, waitFor } from "@elurjs/core-testing";
 import { IonRouterOutlet, IonBackButton } from "../IonRouterOutlet.js";
 import { IonPage, createPageLifecycle } from "../index.js";
 import "./mocks/ionic.js";
@@ -68,7 +68,7 @@ describe("IonRouterOutlet", () => {
 
     it("auto-bootstraps a router when none exists", () => {
         const outlet = new IonRouterOutlet([{ path: "/", component: () => html`<div>Home</div>` }]);
-        expect(() => nixRouter()).not.toThrow();
+        expect(() => elurRouter()).not.toThrow();
         outlet.render();
     });
 
@@ -79,7 +79,7 @@ describe("IonRouterOutlet", () => {
             { path: "/protected", component: () => html`<div>Protected</div>`, beforeEnter: guard },
         ]);
         outlet.render();
-        const router = nixRouter();
+        const router = elurRouter();
         router.navigate("/protected", { direction: "forward" });
         expect(guard).toHaveBeenCalled();
     });
@@ -281,9 +281,9 @@ describe("IonRouterOutlet", () => {
         expect(document.querySelector('[data-testid="home"]')).toBeTruthy();
     });
 
-    it("supports NixComponent route components", async () => {
+    it("supports ElurComponent route components", async () => {
         const router = createRouter([{ path: "/" }, { path: "/class" }]);
-        class ClassPage extends NixComponent {
+        class ClassPage extends ElurComponent {
             override render() {
                 return html`<div data-testid="class">Class Page</div>`;
             }

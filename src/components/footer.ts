@@ -2,8 +2,8 @@
  * Direct subpath import for ion-footer — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonFooter } from "@deijose/nix-ionic/components/footer";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonFooter } from "@elurjs/ionic/components/footer";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonFooter);
  * ```

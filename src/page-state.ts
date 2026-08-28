@@ -1,5 +1,5 @@
 /**
- * @deijose/nix-ionic / page-state.ts
+ * @elurjs/ionic / page-state.ts
  *
  * Opt-in page-state persistence protocol. Allows pages to save and restore
  * serializable state across navigation, cache eviction, and app reloads.
@@ -17,8 +17,8 @@
  *
  * @example Basic usage in a page component
  * ```ts
- * import { signal, html } from "@deijose/nix-js";
- * import { createPageState, IonPage } from "@deijose/nix-ionic";
+ * import { signal, html } from "@elurjs/core";
+ * import { createPageState, IonPage } from "@elurjs/ionic";
  *
  * class SearchPage extends IonPage {
  *   private query = signal("");
@@ -78,7 +78,7 @@ export interface PageStateOptions {
      */
     storage?: StorageBackend;
     /**
-     * Namespace prefix for storage keys. Defaults to "nix-ionic".
+     * Namespace prefix for storage keys. Defaults to "elur-ionic".
      * Useful for multi-app scenarios on the same origin.
      */
     namespace?: string;
@@ -199,7 +199,7 @@ export function createPageState(
 ): PageState {
     const {
         storage: backend = "session",
-        namespace = "nix-ionic",
+        namespace = "elur-ionic",
         keySuffix = "",
     } = options;
 
@@ -217,7 +217,7 @@ export function createPageState(
             if (!isSerializable(value)) {
                 if (typeof console !== "undefined" && console.warn) {
                     console.warn(
-                        `[nix-ionic] PageState: skipping non-serializable value for "${name}" ` +
+                        `[elur-ionic] PageState: skipping non-serializable value for "${name}" ` +
                         `on page "${pageId}". Only serializable data (primitives, plain arrays, ` +
                         `plain objects) can be persisted. DOM nodes, functions, and class ` +
                         `instances are not allowed.`,
@@ -236,7 +236,7 @@ export function createPageState(
                 // Quota exceeded or storage disabled — fail silently
                 if (typeof console !== "undefined" && console.warn) {
                     console.warn(
-                        `[nix-ionic] PageState: failed to save state for page "${pageId}" ` +
+                        `[elur-ionic] PageState: failed to save state for page "${pageId}" ` +
                         `(storage quota exceeded or storage disabled).`,
                     );
                 }
@@ -294,12 +294,12 @@ export function createPageState(
 // --- Batch helpers ---
 
 /**
- * Clear all nix-ionic page-state entries from a storage backend.
+ * Clear all elur-ionic page-state entries from a storage backend.
  * Useful for logout flows.
  *
  * @example
  * ```ts
- * import { clearAllPageState } from "@deijose/nix-ionic";
+ * import { clearAllPageState } from "@elurjs/ionic";
  *
  * function logout() {
  *   clearAllPageState(); // sessionStorage
@@ -307,7 +307,7 @@ export function createPageState(
  * }
  * ```
  */
-export function clearAllPageState(backend: StorageBackend = "session", namespace = "nix-ionic"): void {
+export function clearAllPageState(backend: StorageBackend = "session", namespace = "elur-ionic"): void {
     const storage = getStorage(backend);
     if (!storage) return;
 

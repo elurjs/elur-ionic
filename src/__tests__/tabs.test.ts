@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { createRouter } from "@deijose/nix-js";
-import { _resetRouter } from "@deijose/nix-js/router";
-import { render, screen, fireEvent, cleanup, waitFor } from "@deijose/nix-js-testing";
+import { createRouter } from "@elurjs/core";
+import { _resetRouter } from "@elurjs/core/router";
+import { render, screen, fireEvent, cleanup, waitFor } from "@elurjs/core-testing";
 import { createBottomTabBar } from "../tabs.js";
 import "./mocks/ionic.js";
 

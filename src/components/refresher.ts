@@ -2,8 +2,8 @@
  * Direct subpath import for ion-refresher — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonRefresher } from "@deijose/nix-ionic/components/refresher";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonRefresher } from "@elurjs/ionic/components/refresher";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonRefresher);
  * ```

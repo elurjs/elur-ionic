@@ -1,5 +1,5 @@
 /**
- * Bundle measurement script for @deijose/nix-ionic.
+ * Bundle measurement script for @elurjs/ionic.
  *
  * Builds each fixture in bundle-fixture/ with Vite and measures:
  *   - Raw JS size
@@ -46,17 +46,17 @@ for (const fixture of fixtures) {
         resolve: {
             alias: [
                 // Map all subpath imports to local src
-                { find: /^@deijose\/nix-ionic\/components\/manifest$/, replacement: resolve("src/components/manifest.ts") },
-                { find: /^@deijose\/nix-ionic\/components\/(.+)$/, replacement: resolve("src/components/$1.ts") },
-                { find: /^@deijose\/nix-ionic\/components$/, replacement: resolve("src/components.ts") },
-                { find: /^@deijose\/nix-ionic\/bundles\/(.+)$/, replacement: resolve("src/bundles/$1.ts") },
-                { find: /^@deijose\/nix-ionic\/overlays$/, replacement: resolve("src/overlays.ts") },
-                { find: /^@deijose\/nix-ionic\/capacitor$/, replacement: resolve("src/capacitor.ts") },
-                { find: /^@deijose\/nix-ionic\/vite-plugin$/, replacement: resolve("src/vite-plugin.ts") },
-                { find: /^@deijose\/nix-ionic\/page-state$/, replacement: resolve("src/page-state.ts") },
-                { find: /^@deijose\/nix-ionic\/navigation$/, replacement: resolve("src/navigation.ts") },
-                { find: /^@deijose\/nix-ionic\/tabs$/, replacement: resolve("src/tabs.ts") },
-                { find: /^@deijose\/nix-ionic$/, replacement: resolve("src/index.ts") },
+                { find: /^@deijose\/elur-ionic\/components\/manifest$/, replacement: resolve("src/components/manifest.ts") },
+                { find: /^@deijose\/elur-ionic\/components\/(.+)$/, replacement: resolve("src/components/$1.ts") },
+                { find: /^@deijose\/elur-ionic\/components$/, replacement: resolve("src/components.ts") },
+                { find: /^@deijose\/elur-ionic\/bundles\/(.+)$/, replacement: resolve("src/bundles/$1.ts") },
+                { find: /^@deijose\/elur-ionic\/overlays$/, replacement: resolve("src/overlays.ts") },
+                { find: /^@deijose\/elur-ionic\/capacitor$/, replacement: resolve("src/capacitor.ts") },
+                { find: /^@deijose\/elur-ionic\/vite-plugin$/, replacement: resolve("src/vite-plugin.ts") },
+                { find: /^@deijose\/elur-ionic\/page-state$/, replacement: resolve("src/page-state.ts") },
+                { find: /^@deijose\/elur-ionic\/navigation$/, replacement: resolve("src/navigation.ts") },
+                { find: /^@deijose\/elur-ionic\/tabs$/, replacement: resolve("src/tabs.ts") },
+                { find: /^@deijose\/elur-ionic$/, replacement: resolve("src/index.ts") },
             ],
         },
         build: {
@@ -69,7 +69,7 @@ for (const fixture of fixtures) {
             },
             rollupOptions: {
                 external: [
-                    "@deijose/nix-js",
+                    "@elurjs/core",
                     /^@ionic\/core.*/,
                     /^ionicons.*/,
                     /^@capacitor\//,

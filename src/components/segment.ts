@@ -2,8 +2,8 @@
  * Direct subpath import for ion-segment — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonSegment } from "@deijose/nix-ionic/components/segment";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonSegment } from "@elurjs/ionic/components/segment";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonSegment);
  * ```

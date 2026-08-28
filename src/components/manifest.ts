@@ -1,5 +1,5 @@
 /**
- * Typed manifest of all Ionic 8 custom elements supported by nix-ionic.
+ * Typed manifest of all Ionic 8 custom elements supported by elur-ionic.
  * This is the single source of truth for:
  *   - the Vite plugin (auto-import scanning)
  *   - direct subpath generation
@@ -30,7 +30,7 @@ export interface ComponentManifestEntry {
     category: ComponentCategory;
     /** Other components this one depends on (e.g. ion-card needs ion-card-content). */
     dependencies?: string[];
-    /** Associated nix-ionic wrapper or controller, if any. */
+    /** Associated elur-ionic wrapper or controller, if any. */
     wrapper?: string;
     /** Minimum Ionic Core major version. */
     minIonicMajor: number;

@@ -17,12 +17,12 @@ import "@ionic/core/css/padding.css";
 import "@ionic/core/css/flex-utils.css";
 import "@ionic/core/css/display.css";
 
-import { NixComponent, html, mount, signal, nixRouter, createRouter } from "@deijose/nix-js";
+import { ElurComponent, html, mount, signal, elurRouter, createRouter } from "@elurjs/core";
 import {
     IonRouterOutlet,
     IonPage,
     IonBackButton,
-    initializeNixIonic,
+    initializeElurIonic,
     registerIonicComponents,
     createToast,
     createAlert,
@@ -30,14 +30,14 @@ import {
     createActionSheet,
     createPicker,
     createModalController,
-    createNixDelegate,
+    createElurDelegate,
     type PageContext,
 } from "../../src/index";
 
 // Register ALL components for E2E (we want full Ionic Core)
 import { allComponents } from "../../src/bundles/all";
 
-initializeNixIonic();
+initializeElurIonic();
 registerIonicComponents(...allComponents);
 
 // Create router with hash mode so it works under any base path
@@ -72,7 +72,7 @@ class HomePage extends IonPage {
             <ion-content class="ion-padding">
                 <p data-testid="home-visits">Visits: ${() => this.visitCount.value}</p>
                 <ion-button data-testid="go-detail" @click=${() => {
-                const router = (window as any).__nixRouter;
+                const router = (window as any).__elurRouter;
                 router.navigate("/detail/42");
             }}>Go to Detail</ion-button>
                 <ion-button data-testid="go-toast" @click=${() => {
@@ -125,11 +125,11 @@ class DetailPage extends IonPage {
                 <p data-testid="detail-id">ID: ${() => this.id}</p>
                 <p data-testid="detail-enters">Enters: ${() => this.enterCount.value}</p>
                 <ion-button data-testid="go-back" @click=${() => {
-                const router = (window as any).__nixRouter;
+                const router = (window as any).__elurRouter;
                 router.back();
             }}>Back</ion-button>
                 <ion-button data-testid="go-deeper" @click=${() => {
-                const router = (window as any).__nixRouter;
+                const router = (window as any).__elurRouter;
                 router.navigate("/detail/99");
             }}>Go Deeper</ion-button>
             </ion-content>
@@ -177,7 +177,7 @@ const outlet = new IonRouterOutlet(routes);
 
 // --- App ---
 
-class App extends NixComponent {
+class App extends ElurComponent {
     override render() {
         return html`<ion-app>${outlet}</ion-app>`;
     }
@@ -192,7 +192,7 @@ const loading = createLoading();
 const actionSheet = createActionSheet();
 const picker = createPicker();
 
-(window as any).__nixRouter = (window as any).__nixRouter ?? undefined;
+(window as any).__elurRouter = (window as any).__elurRouter ?? undefined;
 (window as any).__showToast = () => {
     return toast.present({ message: "Hello from E2E!", duration: 1500 });
 };
@@ -203,7 +203,7 @@ const picker = createPicker();
                 <ion-toolbar><ion-title>Modal</ion-title></ion-toolbar>
             </ion-header>
             <ion-content class="ion-padding">
-                <p data-testid="modal-content">Modal content from Nix.js</p>
+                <p data-testid="modal-content">Modal content from Elur</p>
                 <ion-button data-testid="modal-close" @click=${() => modal.dismiss()}>Close</ion-button>
             </ion-content>
         `,
@@ -212,7 +212,7 @@ const picker = createPicker();
 (window as any).__showAlert = () => {
     return alert.present({
         header: "E2E Alert",
-        message: "This is an alert from nix-ionic",
+        message: "This is an alert from elur-ionic",
         buttons: [
             { text: "Cancel", role: "cancel" },
             { text: "OK", role: "confirm" },
@@ -261,6 +261,6 @@ setTimeout(() => {
     if (!window.location.hash) {
         window.location.hash = "#/";
     }
-    (window as any).__nixRouter = nixRouter();
+    (window as any).__elurRouter = elurRouter();
     mount(new App(), "#app");
 }, 0);

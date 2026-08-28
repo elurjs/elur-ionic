@@ -2,8 +2,8 @@
  * Direct subpath import for ion-split-pane — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonSplitPane } from "@deijose/nix-ionic/components/split-pane";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonSplitPane } from "@elurjs/ionic/components/split-pane";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonSplitPane);
  * ```

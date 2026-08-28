@@ -2,8 +2,8 @@
  * Direct subpath import for ion-checkbox — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonCheckbox } from "@deijose/nix-ionic/components/checkbox";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonCheckbox } from "@elurjs/ionic/components/checkbox";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonCheckbox);
  * ```

@@ -14,7 +14,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "@deijose/nix-ionic": resolve(__dirname, "src/index.ts"),
+            "@elurjs/ionic": resolve(__dirname, "src/index.ts"),
         },
     },
     optimizeDeps: {

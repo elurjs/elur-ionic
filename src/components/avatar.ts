@@ -2,8 +2,8 @@
  * Direct subpath import for ion-avatar — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonAvatar } from "@deijose/nix-ionic/components/avatar";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonAvatar } from "@elurjs/ionic/components/avatar";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonAvatar);
  * ```

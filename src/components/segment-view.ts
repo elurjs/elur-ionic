@@ -2,8 +2,8 @@
  * Direct subpath import for ion-segment-view — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonSegmentView } from "@deijose/nix-ionic/components/segment-view";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonSegmentView } from "@elurjs/ionic/components/segment-view";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonSegmentView);
  * ```

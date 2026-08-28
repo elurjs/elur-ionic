@@ -2,8 +2,8 @@
  * Direct subpath import for ion-card-subtitle — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonCardSubtitle } from "@deijose/nix-ionic/components/card-subtitle";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonCardSubtitle } from "@elurjs/ionic/components/card-subtitle";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonCardSubtitle);
  * ```

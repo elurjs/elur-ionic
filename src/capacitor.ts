@@ -1,8 +1,8 @@
 /**
- * @deijose/nix-ionic / capacitor.ts
+ * @elurjs/ionic / capacitor.ts
  *
  * Optional Capacitor integration for native mobile apps. This module is
- * isolated behind the `@deijose/nix-ionic/capacitor` subpath so the main
+ * isolated behind the `@elurjs/ionic/capacitor` subpath so the main
  * web bundle has ZERO Capacitor dependency cost.
  *
  * All `@capacitor/*` imports are dynamic — they are only loaded when the
@@ -12,7 +12,7 @@
  * @example Bootstrap a mobile app
  * ```ts
  * // app.ts — only imported in native builds
- * import { createCapacitorApp } from "@deijose/nix-ionic/capacitor";
+ * import { createCapacitorApp } from "@elurjs/ionic/capacitor";
  *
  * const app = createCapacitorApp({
  *   statusBar: { style: "dark", backgroundColor: "#1a1a2e" },
@@ -24,7 +24,7 @@
  *
  * @example Individual plugin usage
  * ```ts
- * import { Haptics, StatusBar } from "@deijose/nix-ionic/capacitor";
+ * import { Haptics, StatusBar } from "@elurjs/ionic/capacitor";
  *
  * // No-op on web, vibrates on native
  * Haptics.impact("medium");
@@ -391,8 +391,8 @@ export interface CapacitorAppOptions {
  *
  * @example
  * ```ts
- * import { createCapacitorApp } from "@deijose/nix-ionic/capacitor";
- * import { mount } from "@deijose/nix-js";
+ * import { createCapacitorApp } from "@elurjs/ionic/capacitor";
+ * import { mount } from "@elurjs/core";
  * import { App as RootApp } from "./App";
  *
  * const app = createCapacitorApp({

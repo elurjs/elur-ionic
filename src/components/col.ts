@@ -2,8 +2,8 @@
  * Direct subpath import for ion-col — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonCol } from "@deijose/nix-ionic/components/col";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonCol } from "@elurjs/ionic/components/col";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonCol);
  * ```

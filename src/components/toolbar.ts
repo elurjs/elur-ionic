@@ -2,8 +2,8 @@
  * Direct subpath import for ion-toolbar — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonToolbar } from "@deijose/nix-ionic/components/toolbar";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonToolbar } from "@elurjs/ionic/components/toolbar";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonToolbar);
  * ```

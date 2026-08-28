@@ -2,8 +2,8 @@
  * Direct subpath import for ion-img — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonImg } from "@deijose/nix-ionic/components/img";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonImg } from "@elurjs/ionic/components/img";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonImg);
  * ```

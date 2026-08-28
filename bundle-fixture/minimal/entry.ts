@@ -4,10 +4,10 @@
  * Expected: only ion-button code is included in the bundle.
  * No other Ionic component code should be present.
  */
-import { initializeNixIonic, registerIonicComponents } from "@deijose/nix-ionic";
-import { defineIonButton } from "@deijose/nix-ionic/components/button";
+import { initializeElurIonic, registerIonicComponents } from "@elurjs/ionic";
+import { defineIonButton } from "@elurjs/ionic/components/button";
 
-initializeNixIonic();
+initializeElurIonic();
 registerIonicComponents(defineIonButton);
 
 export { defineIonButton };

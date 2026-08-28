@@ -4,11 +4,11 @@
  * Expected: only layout + buttons code is included. No forms, lists,
  * feedback, overlays, or navigation component code.
  */
-import { initializeNixIonic, registerIonicComponents } from "@deijose/nix-ionic";
-import { layoutComponents } from "@deijose/nix-ionic/bundles/layout";
-import { buttonComponents } from "@deijose/nix-ionic/bundles/buttons";
+import { initializeElurIonic, registerIonicComponents } from "@elurjs/ionic";
+import { layoutComponents } from "@elurjs/ionic/bundles/layout";
+import { buttonComponents } from "@elurjs/ionic/bundles/buttons";
 
-initializeNixIonic();
+initializeElurIonic();
 registerIonicComponents(...layoutComponents, ...buttonComponents);
 
 export { layoutComponents, buttonComponents };

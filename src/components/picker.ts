@@ -2,8 +2,8 @@
  * Direct subpath import for ion-picker — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonPicker } from "@deijose/nix-ionic/components/picker";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonPicker } from "@elurjs/ionic/components/picker";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonPicker);
  * ```

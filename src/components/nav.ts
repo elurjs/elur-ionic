@@ -2,8 +2,8 @@
  * Direct subpath import for ion-nav — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonNav } from "@deijose/nix-ionic/components/nav";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonNav } from "@elurjs/ionic/components/nav";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonNav);
  * ```

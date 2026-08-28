@@ -2,8 +2,8 @@
  * Direct subpath import for ion-fab — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonFab } from "@deijose/nix-ionic/components/fab";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonFab } from "@elurjs/ionic/components/fab";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonFab);
  * ```

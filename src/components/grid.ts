@@ -2,8 +2,8 @@
  * Direct subpath import for ion-grid — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonGrid } from "@deijose/nix-ionic/components/grid";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonGrid } from "@elurjs/ionic/components/grid";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonGrid);
  * ```

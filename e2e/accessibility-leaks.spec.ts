@@ -223,12 +223,12 @@ test.describe("Memory leaks", () => {
         // Navigate to the uncached page multiple times
         for (let i = 0; i < 5; i++) {
             await page.evaluate(() => {
-                const router = (window as any).__nixRouter;
+                const router = (window as any).__elurRouter;
                 router.navigate("/uncached");
             });
             await page.waitForSelector("[data-testid='uncached-mounts']", { timeout: 5000 });
             await page.evaluate(() => {
-                const router = (window as any).__nixRouter;
+                const router = (window as any).__elurRouter;
                 router.back();
             });
             await waitForVisibleText(page, "home-visits", "Visits:");

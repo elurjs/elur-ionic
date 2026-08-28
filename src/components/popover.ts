@@ -2,8 +2,8 @@
  * Direct subpath import for ion-popover — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonPopover } from "@deijose/nix-ionic/components/popover";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonPopover } from "@elurjs/ionic/components/popover";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonPopover);
  * ```

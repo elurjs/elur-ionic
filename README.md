@@ -1,18 +1,18 @@
-# @deijose/nix-ionic
+# @elurjs/ionic
 
-[![npm version](https://img.shields.io/npm/v/@deijose/nix-ionic.svg)](https://www.npmjs.com/package/@deijose/nix-ionic)
+[![npm version](https://img.shields.io/npm/v/@elurjs/ionic.svg)](https://www.npmjs.com/package/@elurjs/ionic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-> Ionic mobile integration for [Nix.js](https://nix-js.dev/) — tree-shakeable components, reactive overlays, cache policies, page-state persistence, optional Capacitor, and a Vite plugin for auto-registration.
+> Ionic mobile integration for [Elur](https://elur.dev/) — tree-shakeable components, reactive overlays, cache policies, page-state persistence, optional Capacitor, and a Vite plugin for auto-registration.
 
 ## Why?
 
-`@deijose/nix-ionic` bridges Nix.js signal-based reactivity with Ionic Core 8's native routing, transitions, and overlays. Unlike `@ionic/angular` or `@ionic/react`, it adds **zero framework runtime overhead** — no virtual DOM, no dependency arrays, no hooks rules.
+`@elurjs/ionic` bridges Elur signal-based reactivity with Ionic Core 8's native routing, transitions, and overlays. Unlike `@ionic/angular` or `@ionic/react`, it adds **zero framework runtime overhead** — no virtual DOM, no dependency arrays, no hooks rules.
 
 ## Install
 
 ```bash
-npm install @deijose/nix-ionic @deijose/nix-js @ionic/core ionicons
+npm install @elurjs/ionic @elurjs/core @ionic/core ionicons
 ```
 
 For native mobile (optional):
@@ -33,14 +33,14 @@ import "@ionic/core/css/padding.css";
 import "@ionic/core/css/flex-utils.css";
 import "@ionic/core/css/display.css";
 
-import { NixComponent, html, mount } from "@deijose/nix-js";
-import { IonRouterOutlet, IonPage, IonBackButton } from "@deijose/nix-ionic";
-import { initializeNixIonic, registerIonicComponents } from "@deijose/nix-ionic";
-import { defineIonHeader, defineIonToolbar, defineIonTitle, defineIonContent, defineIonButton } from "@deijose/nix-ionic/components";
+import { ElurComponent, html, mount } from "@elurjs/core";
+import { IonRouterOutlet, IonPage, IonBackButton } from "@elurjs/ionic";
+import { initializeElurIonic, registerIonicComponents } from "@elurjs/ionic";
+import { defineIonHeader, defineIonToolbar, defineIonTitle, defineIonContent, defineIonButton } from "@elurjs/ionic/components";
 import { home, homeOutline } from "ionicons/icons";
 
 // 1. Initialize + register only what you use
-initializeNixIonic();
+initializeElurIonic();
 registerIonicComponents(defineIonHeader, defineIonToolbar, defineIonTitle, defineIonContent, defineIonButton);
 
 // 2. Define routes
@@ -50,7 +50,7 @@ const outlet = new IonRouterOutlet([
 ]);
 
 // 3. Mount
-class App extends NixComponent {
+class App extends ElurComponent {
   override render() {
     return html`<ion-app>${outlet}</ion-app>`;
   }
@@ -62,13 +62,13 @@ mount(new App(), "#app");
 
 | Import | What it gives you |
 |---|---|
-| `@deijose/nix-ionic` | Core: router outlet, pages, lifecycle, setup, overlays, page-state |
-| `@deijose/nix-ionic/components/*` | Individual component definers (tree-shakeable) |
-| `@deijose/nix-ionic/bundles/*` | Category bundles (layout, forms, lists, etc.) |
-| `@deijose/nix-ionic/overlays` | Reactive overlay controllers |
-| `@deijose/nix-ionic/page-state` | Page-state persistence protocol |
-| `@deijose/nix-ionic/navigation` | NavigationManager (single authority, hooks, tab switching) |
-| `@deijose/nix-ionic/capacitor` | Optional Capacitor integration (zero web bundle cost) |
+| `@elurjs/ionic` | Core: router outlet, pages, lifecycle, setup, overlays, page-state |
+| `@elurjs/ionic/components/*` | Individual component definers (tree-shakeable) |
+| `@elurjs/ionic/bundles/*` | Category bundles (layout, forms, lists, etc.) |
+| `@elurjs/ionic/overlays` | Reactive overlay controllers |
+| `@elurjs/ionic/page-state` | Page-state persistence protocol |
+| `@elurjs/ionic/navigation` | NavigationManager (single authority, hooks, tab switching) |
+| `@elurjs/ionic/capacitor` | Optional Capacitor integration (zero web bundle cost) |
 
 ## Testing
 
@@ -77,18 +77,18 @@ mount(new App(), "#app");
   - Navigation, lifecycle, overlays, back button, contract tests
   - Chromium mobile viewport, `prefers-reduced-motion: reduce`
   - No mocks — real `ion-router-outlet.commit()`, real custom elements
-| `@deijose/nix-ionic/vite-plugin` | Vite plugin for auto component/icon registration |
+| `@elurjs/ionic/vite-plugin` | Vite plugin for auto component/icon registration |
 
 ## Setup
 
 ### Incremental (recommended)
 
 ```ts
-import { initializeNixIonic, registerIonicComponents, registerIonicons } from "@deijose/nix-ionic";
-import { defineIonButton, defineIonCard } from "@deijose/nix-ionic/components/button";
+import { initializeElurIonic, registerIonicComponents, registerIonicons } from "@elurjs/ionic";
+import { defineIonButton, defineIonCard } from "@elurjs/ionic/components/button";
 import { star, starOutline } from "ionicons/icons";
 
-initializeNixIonic();
+initializeElurIonic();
 registerIonicComponents(defineIonButton, defineIonCard);
 registerIonicons({ star, "star-outline": starOutline });
 ```
@@ -96,10 +96,10 @@ registerIonicons({ star, "star-outline": starOutline });
 ### Compatibility facade (1.x migration)
 
 ```ts
-import { setupNixIonic } from "@deijose/nix-ionic";
-import { allComponents } from "@deijose/nix-ionic/bundles/all";
+import { setupElurIonic } from "@elurjs/ionic";
+import { allComponents } from "@elurjs/ionic/bundles/all";
 
-setupNixIonic({ components: allComponents });
+setupElurIonic({ components: allComponents });
 ```
 
 ### Vite plugin (auto-registration)
@@ -107,18 +107,18 @@ setupNixIonic({ components: allComponents });
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
-import { nix } from "@deijose/vite-plugin-nix-js";
-import { nixIonic } from "@deijose/nix-ionic/vite-plugin";
+import { elur } from "@elurjs/vite-plugin-elur";
+import { elurIonic } from "@elurjs/ionic/vite-plugin";
 
 export default defineConfig({
   plugins: [
-    nix(),
-    nixIonic(), // scans html`` for <ion-*> tags + static icons
+    elur(),
+    elurIonic(), // scans html`` for <ion-*> tags + static icons
   ],
 });
 
 // Then in your app entry:
-import "virtual:nix-ionic/registration";
+import "virtual:elur-ionic/registration";
 ```
 
 The plugin scans `html\`\`` templates for `<ion-*>` tags and `name="icon-name"` attributes, then generates a virtual module that imports and registers only what you use.
@@ -128,8 +128,8 @@ The plugin scans `html\`\`` templates for `<ion-*>` tags and `name="icon-name"` 
 ### Class component with lifecycle
 
 ```ts
-import { html, signal } from "@deijose/nix-js";
-import { IonPage, IonBackButton, type PageContext } from "@deijose/nix-ionic";
+import { html, signal } from "@elurjs/core";
+import { IonPage, IonBackButton, type PageContext } from "@elurjs/ionic";
 
 class DetailPage extends IonPage {
   private data = signal<unknown>(null);
@@ -168,8 +168,8 @@ class DetailPage extends IonPage {
 ### Function component with composables
 
 ```ts
-import { html, signal } from "@deijose/nix-js";
-import { useIonViewWillEnter, useIonViewWillLeave, type PageContext } from "@deijose/nix-ionic";
+import { html, signal } from "@elurjs/core";
+import { useIonViewWillEnter, useIonViewWillLeave, type PageContext } from "@elurjs/ionic";
 
 function ProfilePage({ lc }: PageContext) {
   const visits = signal(0);
@@ -193,9 +193,9 @@ function ProfilePage({ lc }: PageContext) {
 ## Navigation
 
 ```ts
-import { nixRouter } from "@deijose/nix-js";
+import { elurRouter } from "@elurjs/core";
 
-const router = nixRouter();
+const router = elurRouter();
 router.navigate("/detail/42");
 router.navigate("/search", { query: { q: "hello" } });
 router.replace("/home");
@@ -255,7 +255,7 @@ new IonRouterOutlet([
 A single coordination authority for navigation — hooks, tab switching, and cache invalidation by route pattern.
 
 ```ts
-import { NavigationManager, IonRouterOutlet } from "@deijose/nix-ionic";
+import { NavigationManager, IonRouterOutlet } from "@elurjs/ionic";
 
 const nav = new NavigationManager({ tabs: ["/home", "/search", "/profile"] });
 
@@ -275,7 +275,7 @@ nav.onTabChange((tab, prev) => {
 
 // Programmatic tab switching
 const target = nav.switchTab("/search");
-if (target) nixRouter().navigate(target);
+if (target) elurRouter().navigate(target);
 
 // Cache invalidation by route pattern
 nav.invalidateRoute("/user/:id", { id: "42" }); // invalidate user 42
@@ -298,13 +298,13 @@ nav.activeTab;           // active tab prefix
 
 Reactive overlay controllers using the `create*` pattern (like `createStore`, `createRouter`).
 
-`createPopover()` and `createModal()` automatically inject a Nix.js framework
+`createPopover()` and `createModal()` automatically inject a Elur framework
 delegate when `component` is a function (e.g. `() => html\`...\``), so you can
-pass Nix.js templates as overlay content without any extra setup.
+pass Elur templates as overlay content without any extra setup.
 
 ```ts
-import { html } from "@deijose/nix-js";
-import { createToast, createAlert, createModal, createPopover, confirm, withLoading } from "@deijose/nix-ionic";
+import { html } from "@elurjs/core";
+import { createToast, createAlert, createModal, createPopover, confirm, withLoading } from "@elurjs/ionic";
 
 function MyPage() {
   const toast = createToast();
@@ -319,7 +319,7 @@ function MyPage() {
   };
 
   const openModal = () => modal.present({
-    component: () => html`<ion-content><h1>Modal content mounted by Nix.js!</h1></ion-content>`,
+    component: () => html`<ion-content><h1>Modal content mounted by Elur!</h1></ion-content>`,
   });
 
   const openPopover = (event: Event) => popover.present({
@@ -354,14 +354,14 @@ function MyPage() {
 | `createAlert()` | Reactive alert |
 | `createLoading()` | Reactive loading spinner |
 | `createActionSheet()` | Reactive action sheet |
-| `createPopover()` | Reactive popover (auto-injects Nix.js delegate for `component: () => html\`...\``) |
-| `createModal()` | Reactive modal (auto-injects Nix.js delegate for `component: () => html\`...\``) |
+| `createPopover()` | Reactive popover (auto-injects Elur delegate for `component: () => html\`...\``) |
+| `createModal()` | Reactive modal (auto-injects Elur delegate for `component: () => html\`...\``) |
 | `createPicker()` | Column-based picker (lazy-registers `ion-picker-legacy`) |
 
 ### One-shot helpers
 
 ```ts
-import { showToast, withLoading, confirm } from "@deijose/nix-ionic";
+import { showToast, withLoading, confirm } from "@elurjs/ionic";
 
 showToast({ message: "Done!", duration: 1000 });
 
@@ -376,8 +376,8 @@ const yes = await confirm({ header: "Delete", message: "Sure?", confirmText: "De
 Opt-in persistence of serializable state across navigation and app restarts.
 
 ```ts
-import { signal } from "@deijose/nix-js";
-import { createPageState, IonPage } from "@deijose/nix-ionic";
+import { signal } from "@elurjs/core";
+import { createPageState, IonPage } from "@elurjs/ionic";
 
 class SearchPage extends IonPage {
   private query = signal("");
@@ -400,10 +400,10 @@ class SearchPage extends IonPage {
 
 ## Capacitor (optional native)
 
-Isolated behind `@deijose/nix-ionic/capacitor` — **zero web bundle cost** (0 bytes of `@capacitor/*` in main bundle).
+Isolated behind `@elurjs/ionic/capacitor` — **zero web bundle cost** (0 bytes of `@capacitor/*` in main bundle).
 
 ```ts
-import { createCapacitorApp } from "@deijose/nix-ionic/capacitor";
+import { createCapacitorApp } from "@elurjs/ionic/capacitor";
 
 const app = createCapacitorApp({
   statusBar: { style: "dark", backgroundColor: "#1a1a2e" },
@@ -417,7 +417,7 @@ await app.ready(); // configures status bar, hides splash, wires back button
 ### Individual plugins
 
 ```ts
-import { Haptics, StatusBar, App, Keyboard } from "@deijose/nix-ionic/capacitor";
+import { Haptics, StatusBar, App, Keyboard } from "@elurjs/ionic/capacitor";
 
 await Haptics.impact("medium");     // no-op on web
 await StatusBar.setStyle({ style: "dark" }); // no-op on web
@@ -429,7 +429,7 @@ All methods are **no-ops on web** — safe to call unconditionally.
 ## Tabs
 
 ```ts
-import { createBottomTabBar, createTabsLayout, IonRouterOutlet, NavigationManager } from "@deijose/nix-ionic";
+import { createBottomTabBar, createTabsLayout, IonRouterOutlet, NavigationManager } from "@elurjs/ionic";
 import { home, search, person, settings } from "ionicons/icons";
 
 const nav = new NavigationManager({ tabs: ["/", "/search", "/profile", "/settings"] });
@@ -461,7 +461,7 @@ html`<ion-app>${tabsLayout}</ion-app>`;
 
 ### How tabs work
 
-- **Navigation** is driven by the Nix.js router, not Ionic's internal tab
+- **Navigation** is driven by the Elur router, not Ionic's internal tab
   selection. Each `ion-tab-button` has `@click.prevent.stop` to prevent
   Ionic's `select()` (which expects `<ion-tab>` children we don't use).
 - **`createTabsLayout()`** wraps the outlet and tab bar in `<ion-tabs>`
@@ -471,7 +471,7 @@ html`<ion-app>${tabsLayout}</ion-app>`;
   `search`, `/profile/edit` → `profile-edit`. Override with `tabId`.
 - **`selected` state** is set via JS property (`(btn as any).selected =
   isActive`) using a `ref` + `effect` + `nextTick`, because Stencil
-  boolean props can't be set via HTML attributes with Nix.js.
+  boolean props can't be set via HTML attributes with Elur.
 
 ### Tab bar options
 
@@ -504,23 +504,23 @@ Auto-registers only the Ionic components and icons you actually use in `html\`\`
 
 ```ts
 // vite.config.ts
-import { nixIonic } from "@deijose/nix-ionic/vite-plugin";
+import { elurIonic } from "@elurjs/ionic/vite-plugin";
 
 export default defineConfig({
-  plugins: [nixIonic()],
+  plugins: [elurIonic()],
 });
 ```
 
 ```ts
 // app entry — imports the auto-generated virtual module
-import "virtual:nix-ionic/registration";
+import "virtual:elur-ionic/registration";
 ```
 
 Features:
 - Scans `html\`\`` for `<ion-*>` tags → generates direct subpath imports
 - Scans `name="icon-name"` on `<ion-icon>` → generates `ionicons/icons` imports
 - Warns on dynamic tags/icons (with allowlist suppression)
-- `nixIonic({ allowTags: [...], allowIcons: [...] })` for dynamic usage
+- `elurIonic({ allowTags: [...], allowIcons: [...] })` for dynamic usage
 
 ### `allowTags` and `allowIcons` (important for lazy-loaded pages)
 
@@ -535,14 +535,14 @@ lazy-loaded pages.** The plugin emits warnings when it detects tags or icons
 that are not in the allowlists, so you know exactly what to add:
 
 ```text
-[nix-ionic] Tags used in src/pages/HomePage.ts but not in allowTags:
+[elur-ionic] Tags used in src/pages/HomePage.ts but not in allowTags:
 ion-header, ion-toolbar, ion-title, ion-content, ion-button, ...
-Add them to `nixIonic({ allowTags: [...] })` to ensure they are
+Add them to `elurIonic({ allowTags: [...] })` to ensure they are
 registered before first use.
 
-[nix-ionic] Icons used in src/pages/HomePage.ts but not in allowIcons:
+[elur-ionic] Icons used in src/pages/HomePage.ts but not in allowIcons:
 flash-outline, leaf-outline, toast-outline, ...
-Add them to `nixIonic({ allowIcons: [...] })` to ensure they are
+Add them to `elurIonic({ allowIcons: [...] })` to ensure they are
 registered before first use.
 ```
 
@@ -550,7 +550,7 @@ If new tags/icons are discovered after the registration module was already
 served, an additional warning is emitted:
 
 ```text
-[nix-ionic] New tags discovered after registration: ion-header, ...
+[elur-ionic] New tags discovered after registration: ion-header, ...
 These were NOT included in the registration module. Add them to
 allowTags and reload.
 ```
@@ -560,13 +560,13 @@ Example with full allowlists:
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
-import { nix } from "@deijose/vite-plugin-nix-js";
-import { nixIonic } from "@deijose/nix-ionic/vite-plugin";
+import { elur } from "@elurjs/vite-plugin-elur";
+import { elurIonic } from "@elurjs/ionic/vite-plugin";
 
 export default defineConfig({
   plugins: [
-    nix(),
-    nixIonic({
+    elur(),
+    elurIonic({
       allowTags: [
         "ion-app", "ion-header", "ion-toolbar", "ion-title", "ion-content",
         "ion-buttons", "ion-button", "ion-back-button",
@@ -600,10 +600,10 @@ export default defineConfig({
 | `IonPage` | Base class for pages with lifecycle hooks |
 | `IonBackButton(defaultHref?)` | Back button component |
 | `createBottomTabBar(tabs, opts?)` | Bottom tab bar |
-| `initializeNixIonic()` | Initialize Ionic Core (incremental) |
+| `initializeElurIonic()` | Initialize Ionic Core (incremental) |
 | `registerIonicComponents(...definers)` | Register specific components |
 | `registerIonicons(icons)` | Register specific icons |
-| `setupNixIonic(opts?)` | 1.x compatibility facade |
+| `setupElurIonic(opts?)` | 1.x compatibility facade |
 | `createPageState(pageId, signals, opts?)` | Page-state persistence |
 | `clearAllPageState(backend?, ns?)` | Clear all persisted state |
 | `NavigationManager` | Single navigation authority (hooks, tabs, invalidation) |
@@ -620,7 +620,7 @@ export default defineConfig({
 | `withLoading(opts, task)` | Loading + async task + auto-dismiss |
 | `confirm(opts)` | Promise-based confirm dialog |
 
-### Capacitor (`@deijose/nix-ionic/capacitor`)
+### Capacitor (`@elurjs/ionic/capacitor`)
 
 | Export | Description |
 |---|---|
@@ -629,16 +629,16 @@ export default defineConfig({
 | `Haptics` / `App` | Plugin wrappers (no-op on web) |
 | `isNative()` / `isWeb()` | Platform detection |
 
-### Vite plugin (`@deijose/nix-ionic/vite-plugin`)
+### Vite plugin (`@elurjs/ionic/vite-plugin`)
 
 | Export | Description |
 |---|---|
-| `nixIonic(opts?)` | Vite plugin for auto-registration |
+| `elurIonic(opts?)` | Vite plugin for auto-registration |
 | `generateRegistrationModule(tags, icons, opts)` | Code generator (for testing) |
 
 ## Comparison
 
-| Feature | `@ionic/angular` | `@ionic/react` | `@deijose/nix-ionic` |
+| Feature | `@ionic/angular` | `@ionic/react` | `@elurjs/ionic` |
 |---|---|---|---|
 | Virtual DOM | Angular | React | **None** |
 | Bundle size overhead | Angular runtime | React runtime | **Zero** |

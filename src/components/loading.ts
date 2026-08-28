@@ -2,8 +2,8 @@
  * Direct subpath import for ion-loading — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonLoading } from "@deijose/nix-ionic/components/loading";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonLoading } from "@elurjs/ionic/components/loading";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonLoading);
  * ```

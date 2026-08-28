@@ -2,8 +2,8 @@
  * Direct subpath import for ion-datetime — maximum tree-shaking.
  *
  * ```ts
- * import { defineIonDatetime } from "@deijose/nix-ionic/components/datetime";
- * import { registerIonicComponents } from "@deijose/nix-ionic";
+ * import { defineIonDatetime } from "@elurjs/ionic/components/datetime";
+ * import { registerIonicComponents } from "@elurjs/ionic";
  *
  * registerIonicComponents(defineIonDatetime);
  * ```
