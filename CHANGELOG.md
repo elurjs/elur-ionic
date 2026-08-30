@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0]
+
+### Added
+
+- **DevTools plugin entry point** (`@elurjs/ionic/devtools`): dev-only module
+  that registers an `Ionic` plugin on the elur DevTools backend hook
+  (`window.__ELUR_DEVTOOLS_HOOK__`), exposing live `IonRouterOutlet`
+  instances (cached views per tab with age/idle times, cache policy, tab
+  stacks) and `NavigationManager` instances (per-tab stacks, `canGoBack`,
+  transition state). Instances are tracked via global `Symbol.for`
+  registries (`@elurjs/ionic/outlets`, `@elurjs/ionic/navigation`) populated
+  in their constructors — negligible cost, no behavior or hot-path changes.
+  Never loaded in production: `@elurjs/vite-plugin-elur` injects it
+  automatically in dev mode (`devtools: "auto"`).
+
 ## [2.0.7]
 
 ### Added

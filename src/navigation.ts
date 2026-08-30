@@ -142,6 +142,18 @@ export class StackManager {
     }
 
     /**
+     * @internal — Debug snapshot of all tab stacks for
+     * `@elurjs/ionic/devtools`. Plain data, computed on demand.
+     */
+    _debugSnapshot(): Array<{ prefix: string; depth: number; entries: string[] }> {
+        return Array.from(this._stacks.values()).map((stack) => ({
+            prefix: stack.prefix,
+            depth: stack.entries.length,
+            entries: [...stack.entries],
+        }));
+    }
+
+    /**
      * Apply a navigation to the stacks. Returns the effective direction.
      * This is the same logic that was in IonRouterOutlet._stacks.apply().
      */
@@ -221,6 +233,22 @@ export class StackManager {
  *   - Programmatic tab switching
  *   - Route-pattern-based cache invalidation hooks
  */
+/**
+ * @internal — Global registry of live NavigationManager instances for
+ * devtools. Shared via `Symbol.for` so it survives module duplication.
+ */
+const _navigationRegistryKey = Symbol.for("@elurjs/ionic/navigation");
+
+function _registerNavigationManager(instance: NavigationManager): void {
+    const g = globalThis as Record<PropertyKey, unknown>;
+    let set = g[_navigationRegistryKey] as Set<NavigationManager> | undefined;
+    if (!set) {
+        set = new Set();
+        g[_navigationRegistryKey] = set;
+    }
+    set.add(instance);
+}
+
 export class NavigationManager {
     private _stacks: StackManager;
     private _beforeNavHooks: BeforeNavHook[] = [];
@@ -238,6 +266,7 @@ export class NavigationManager {
     constructor(options: NavigationManagerOptions = {}) {
         this._stacks = new StackManager(options.tabs);
         this.canGoBack = signal(false);
+        _registerNavigationManager(this);
     }
 
     // --- Stack access ---

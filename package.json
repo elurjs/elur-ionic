@@ -1,6 +1,6 @@
 {
   "name": "@elurjs/ionic",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "description": "Ionic lifecycle & router bridge for Elur",
   "license": "MIT",
   "author": "Deiver Vasquez",
@@ -50,6 +50,11 @@
       "import": "./dist/lib/components/manifest.js",
       "require": "./dist/lib/components/manifest.cjs",
       "types": "./dist/lib/components/manifest.d.ts"
+    },
+    "./devtools": {
+      "import": "./dist/lib/devtools.js",
+      "require": "./dist/lib/devtools.cjs",
+      "types": "./dist/lib/devtools.d.ts"
     },
     "./components/*": {
       "import": "./dist/lib/components/*.js",

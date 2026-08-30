@@ -34,6 +34,7 @@ export default defineConfig({
         lib: {
             entry: {
                 "elur-ionic": resolve("src/index.ts"),
+                "devtools": resolve("src/devtools.ts"),
                 "components": resolve("src/components.ts"),
                 "components/manifest": resolve("src/components/manifest.ts"),
                 "bundles/layout": resolve("src/bundles/layout.ts"),

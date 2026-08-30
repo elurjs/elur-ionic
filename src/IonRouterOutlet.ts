@@ -285,6 +285,38 @@ class CacheRegistry {
         this._onEvict = cb;
     }
 
+    /**
+     * @internal — Debug snapshot of all cached views for
+     * `@elurjs/ionic/devtools`. Plain data, computed on demand.
+     */
+    _debugSnapshot(): Array<{
+        tab: string;
+        key: string;
+        routePath: string;
+        createdAt: number;
+        lastAccessed: number;
+    }> {
+        const out: Array<{
+            tab: string;
+            key: string;
+            routePath: string;
+            createdAt: number;
+            lastAccessed: number;
+        }> = [];
+        for (const [tab, views] of this._byTab) {
+            for (const [key, view] of views) {
+                out.push({
+                    tab,
+                    key,
+                    routePath: view.routePath,
+                    createdAt: view.createdAt,
+                    lastAccessed: view.lastAccessed,
+                });
+            }
+        }
+        return out;
+    }
+
     get(tabKey: string, cacheKey: string): CachedView | undefined {
         const view = this._byTab.get(tabKey)?.get(cacheKey);
         if (view) {
@@ -449,6 +481,22 @@ export function IonBackButton(defaultHref: string = "/"): ElurTemplate {
  */
 let _activeNavigationManager: NavigationManager | null = null;
 
+/**
+ * @internal — Global registry of live IonRouterOutlet instances for
+ * devtools. Shared via `Symbol.for` so it survives module duplication.
+ */
+const _outletRegistryKey = Symbol.for("@elurjs/ionic/outlets");
+
+function _registerOutlet(instance: IonRouterOutlet): void {
+    const g = globalThis as Record<PropertyKey, unknown>;
+    let set = g[_outletRegistryKey] as Set<IonRouterOutlet> | undefined;
+    if (!set) {
+        set = new Set();
+        g[_outletRegistryKey] = set;
+    }
+    set.add(instance);
+}
+
 export class IonRouterOutlet extends ElurComponent {
     private _routesByPath = new Map<string, RouteDefinition>();
     private _wildcardRoute: RouteDefinition | null = null;
@@ -552,6 +600,8 @@ export class IonRouterOutlet extends ElurComponent {
                 });
             }
         }
+
+        _registerOutlet(this);
     }
 
     private _resolveRouteDefinition(currentPath: string): {
@@ -1072,5 +1122,29 @@ export class IonRouterOutlet extends ElurComponent {
     /** The NavigationManager used by this outlet (if any). */
     get navigation(): NavigationManager | null {
         return this._nav;
+    }
+
+    /**
+     * @internal — Debug snapshot for `@elurjs/ionic/devtools`.
+     * Plain data, computed on demand.
+     */
+    _debugSnapshot(): {
+        cacheEnabled: boolean;
+        cachePolicy: CachePolicy;
+        views: Array<{
+            tab: string;
+            key: string;
+            routePath: string;
+            createdAt: number;
+            lastAccessed: number;
+        }>;
+        stacks: Array<{ prefix: string; depth: number; entries: string[] }>;
+    } {
+        return {
+            cacheEnabled: this._enableCache,
+            cachePolicy: { ...this._cachePolicy },
+            views: this._cache._debugSnapshot(),
+            stacks: this._stacks._debugSnapshot(),
+        };
     }
 }
