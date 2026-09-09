@@ -158,15 +158,15 @@
     "measure-bundles": "node scripts/measure-bundles.mjs"
   },
   "peerDependencies": {
-    "@elurjs/core": "^2.5.3 || ^3.0.0",
-    "@ionic/core": "^8.0.0",
-    "ionicons": "^8.0.0",
-    "@capacitor/core": "^8.0.0",
     "@capacitor/app": "^8.0.0",
-    "@capacitor/status-bar": "^8.0.0",
-    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/haptics": "^8.0.0",
     "@capacitor/keyboard": "^8.0.0",
-    "@capacitor/haptics": "^8.0.0"
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0",
+    "@elurjs/core": "^3.0.0",
+    "@ionic/core": "^9.0.0",
+    "ionicons": "^8.0.0"
   },
   "peerDependenciesMeta": {
     "@capacitor/core": {
@@ -189,27 +189,28 @@
     }
   },
   "devDependencies": {
-    "@babel/parser": "^7.29.8",
-    "@babel/traverse": "^7.29.8",
-    "@babel/types": "^7.29.8",
+    "@babel/parser": "^8.0.4",
+    "@babel/traverse": "^8.0.4",
+    "@babel/types": "^8.0.4",
     "@capacitor/app": "^8.1.1",
     "@capacitor/core": "^8.5.0",
     "@capacitor/haptics": "^8.0.2",
     "@capacitor/keyboard": "^8.0.5",
     "@capacitor/splash-screen": "^8.0.2",
     "@capacitor/status-bar": "^8.0.3",
-    "@elurjs/core": "3.5.0",
+    "@elurjs/core": "^3.6.2",
     "@elurjs/core-testing": "^0.1.4",
     "@ionic/core": "^8.8.1",
     "@playwright/test": "^1.62.1",
     "@types/babel__traverse": "^7.28.0",
-    "@vitest/coverage-v8": "^4.1.9",
+    "@typescript/typescript6": "^6.0.2",
+    "@vitest/coverage-v8": "^5.0.0",
     "happy-dom": "^20.8.3",
     "ionicons": "^8.0.13",
     "terser": "^5.46.0",
     "typescript": "~7.0.2",
     "vite": "^8.0.0",
-    "vite-plugin-dts": "^4.5.4",
-    "vitest": "^4.1.9"
+    "vite-plugin-dts": "^5.1.0",
+    "vitest": "^5.0.0"
   }
 }

@@ -97,7 +97,7 @@ function scanCode(code: string, id: string): ScanResult {
     try {
         ast = parse(code, {
             sourceType: "module",
-            plugins: ["typescript", "jsx", "importMeta", "topLevelAwait"],
+            plugins: ["typescript", "jsx", "importMeta"],
         });
     } catch {
         return result; // not parseable, skip
