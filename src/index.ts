@@ -70,6 +70,7 @@ export {
     type PageContext,
     type GuardResult,
     type IonRouterOutletOptions,
+    type CachePolicy,
 } from "./IonRouterOutlet";
 
 export {
