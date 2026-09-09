@@ -160,7 +160,13 @@
   "peerDependencies": {
     "@elurjs/core": "^2.5.3 || ^3.0.0",
     "@ionic/core": "^8.0.0",
-    "ionicons": "^8.0.0"
+    "ionicons": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/keyboard": "^8.0.0",
+    "@capacitor/haptics": "^8.0.0"
   },
   "peerDependenciesMeta": {
     "@capacitor/core": {
@@ -201,7 +207,7 @@
     "happy-dom": "^20.8.3",
     "ionicons": "^8.0.13",
     "terser": "^5.46.0",
-    "typescript": "~5.9.3",
+    "typescript": "~7.0.2",
     "vite": "^8.0.0",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.1.9"
