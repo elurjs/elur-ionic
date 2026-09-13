@@ -14,7 +14,7 @@
         "@capacitor/keyboard": "^8.0.5",
         "@capacitor/splash-screen": "^8.0.2",
         "@capacitor/status-bar": "^8.0.3",
-        "@elurjs/core": "^3.6.2",
+        "@elurjs/core": "^4.0.0",
         "@elurjs/core-testing": "^0.1.4",
         "@ionic/core": "^8.8.1",
         "@playwright/test": "^1.62.1",
@@ -36,7 +36,7 @@
         "@capacitor/keyboard": "^8.0.0",
         "@capacitor/splash-screen": "^8.0.0",
         "@capacitor/status-bar": "^8.0.0",
-        "@elurjs/core": "^3.0.0",
+        "@elurjs/core": "^3.0.0 || ^3.7.0-beta.0 || ^4.0.0",
         "@ionic/core": "^9.0.0",
         "ionicons": "^8.0.0",
       },
@@ -83,7 +83,7 @@
 
     "@capacitor/status-bar": ["@capacitor/status-bar@8.0.3", "", { "peerDependencies": { "@capacitor/core": ">=8.0.0" } }, "sha512-csSpfNeN49Hx9JaQBSJEIiEbOLtXg3kcc2IpScq2fu5L520h3AWEvsxoH8Srk1jxfRKepaJ4S4sqSC3foI4AgA=="],
 
-    "@elurjs/core": ["@elurjs/core@3.6.2", "", {}, "sha512-wE1pfkqIttEynO5/kn/duRLdery0IZDES82CdRn+wQUj1TjHhy/9COBdC2dMVDwQQbIenaEO6v4NF6S/KeA8yQ=="],
+    "@elurjs/core": ["@elurjs/core@4.0.0", "", {}, "sha512-ma6Jkod2DruzjFt5E2ZGknk4ELLQC1L3WfbnJ3pSUS7/9mlF3LFr8l6aEBy20v69qU5XyeuFAedPx/wBCjMK+A=="],
 
     "@elurjs/core-testing": ["@elurjs/core-testing@0.1.4", "", { "peerDependencies": { "@elurjs/core": "^3.0.0" } }, "sha512-E6NEBhtrYLON1M4x+RrvBGCElobulPk55Bj5j5a8ST6epeaWPJ9jhKFumQdM8cHJ6XcPswp3yHtZdmphghq9zQ=="],
 
