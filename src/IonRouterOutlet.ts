@@ -47,6 +47,7 @@ import {
     type NavigationGuard,
     type NavigationIntent,
 } from "@elurjs/core";
+import * as _coreSignals from "@elurjs/core/signals";
 import { createPageLifecycle, _connectIonicLifecycle, type PageLifecycle } from "./lifecycle";
 import { NavigationManager, StackManager } from "./navigation";
 
@@ -274,6 +275,41 @@ function _dispatchIonicLifecycle(
  * page is removed from the DOM.
  */
 const _uncachedCleanups = new WeakMap<HTMLElement, () => void>();
+
+/**
+ * Mounts a page under a detached reactive root.
+ *
+ * `_mountComponent` runs synchronously inside the outlet's route effect, so
+ * under core ≥4 (next-2 ownership) everything created during mount —
+ * lifecycle watches, user `effect()`s — would be owned by that effect and
+ * disposed when it re-runs on the NEXT navigation, silently killing the
+ * page's reactivity (e.g. ionViewWillLeave never firing). Each page gets its
+ * own ownerless root instead; its lifetime is managed by the cleanup the
+ * view machinery already tracks (`view.cleanup()` / `_uncachedCleanups`).
+ *
+ * On core ≤3.6 there is no ownership model — runWithOwner/createRoot don't
+ * exist and this falls back to calling fn() directly, preserving the old
+ * semantics under the `^3.0.0` peer range.
+ */
+function _mountDetachedPage<T>(fn: () => T): { value: T; dispose: () => void } {
+    const rwOwner = (_coreSignals as Record<string, unknown>).runWithOwner as
+        | ((owner: unknown, f: () => T) => T)
+        | undefined;
+    const mkRoot = (_coreSignals as Record<string, unknown>).createRoot as
+        | ((f: (dispose: () => void) => T) => T)
+        | undefined;
+    if (typeof rwOwner !== "function" || typeof mkRoot !== "function") {
+        return { value: fn(), dispose: () => { } };
+    }
+    let dispose: () => void = () => { };
+    const value = rwOwner(null, () =>
+        mkRoot((d: () => void) => {
+            dispose = d;
+            return fn();
+        }),
+    );
+    return { value, dispose };
+}
 
 class CacheRegistry {
     private _byTab = new Map<string, Map<string, CachedView>>();
@@ -638,6 +674,23 @@ export class IonRouterOutlet extends ElurComponent {
     }
 
     private _mountComponent(
+        pageEl: HTMLElement,
+        def: RouteDefinition,
+        ctx: PageContext,
+    ): () => void {
+        const mounted = _mountDetachedPage(() =>
+            this._mountComponentOwned(pageEl, def, ctx),
+        );
+        return () => {
+            try {
+                mounted.value();
+            } finally {
+                mounted.dispose();
+            }
+        };
+    }
+
+    private _mountComponentOwned(
         pageEl: HTMLElement,
         def: RouteDefinition,
         ctx: PageContext,
