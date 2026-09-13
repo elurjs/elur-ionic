@@ -1,6 +1,6 @@
 {
   "name": "@elurjs/ionic",
-  "version": "1.6.2",
+  "version": "2.1.1",
   "description": "Ionic lifecycle & router bridge for Elur",
   "license": "MIT",
   "author": "Deiver Vasquez",
