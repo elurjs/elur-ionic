@@ -1,6 +1,6 @@
 {
   "name": "@elurjs/ionic",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Ionic lifecycle & router bridge for Elur",
   "license": "MIT",
   "author": "Deiver Vasquez",
@@ -164,7 +164,7 @@
     "@capacitor/keyboard": "^8.0.0",
     "@capacitor/splash-screen": "^8.0.0",
     "@capacitor/status-bar": "^8.0.0",
-    "@elurjs/core": "^3.0.0 || ^3.7.0-beta.0 || ^4.0.0",
+    "@elurjs/core": "^4.0.5",
     "@ionic/core": "^9.0.0",
     "ionicons": "^8.0.0"
   },
@@ -198,8 +198,8 @@
     "@capacitor/keyboard": "^8.0.5",
     "@capacitor/splash-screen": "^8.0.2",
     "@capacitor/status-bar": "^8.0.3",
-    "@elurjs/core": "^4.0.1",
-    "@elurjs/core-testing": "^0.1.5",
+    "@elurjs/core": "^4.0.5",
+    "@elurjs/core-testing": "^0.1.6",
     "@ionic/core": "^8.8.1",
     "@playwright/test": "^1.62.1",
     "@types/babel__traverse": "^7.28.0",
